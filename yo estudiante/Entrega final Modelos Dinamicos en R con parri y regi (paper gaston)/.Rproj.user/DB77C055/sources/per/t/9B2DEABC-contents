@@ -1,0 +1,160 @@
+### MODELO DE SOLOW ###
+library(tidyverse)
+
+######## en tiempo discreto (recursi?n) ########
+
+### Condiciones iniciales
+times=1000 # cantidad maxima de iteraciones
+k = rep(0, times)
+k[1] = 1
+h = rep(0, times)
+h[1] = 2
+y = rep(0, times)
+n = rep(0, times)
+n[1] = 0.01 # crecimiento de la poblacion inicial
+L = rep(0, times)
+L[1]= 100
+
+data.L <- matrix(0, nrow = length(C), ncol = times)
+data.L[,1] = 100 # tamaño inicial de la poblacion
+
+data.n <- matrix(0, nrow = length(C), ncol = times)
+data.n[,1] = 0.02 # tamaño inicial de la poblacion
+
+# Buscar una forma de hacer variar los parametros y q se les adjudique los vectores resultantes
+s_k = 0.25 # tasa de ahorro del capital fisico
+s_h = 0.3 # tasa de ahorro del capital humano
+delta = 0.05 # tasa de depreciacion
+alpha = 0.40 # parametro de eficiencia de escala del capital fisico
+beta = 0.4 # parametro de eficiencia de escala del capital humano
+
+## Ricker (1954) ----
+
+M = 300 # capacidad de carga
+b = 0.002
+c = 1 # c = 1 corresponds to ideal contest competition, the limit c → ∞ corresponds to ideal scramble competition and c > 1 corresponds to varying combinations of scramble and contest.
+
+a = (M*b+1)^c
+
+C=seq(1,4,0.5)
+
+for (i in 1:length(C)) {
+for (t in 2:times) {
+  c= C[i]
+  data.L[i,t] <- (a*data[i,t-1]) / (1+b*data[i,t-1])^c
+  data.n[i,t] <- (data.L[i,t]/data.L[i,t-1])-1 # tasa de crecimiento de la poblacion
+
+}
+}
+
+
+k[t] <- (s_k*y[t-1]+(1-delta)*k[t-1]) / (L[t]/L[t-1]) # evolucion de k
+h[t] <- (s_h*y[t-1]+(1-delta)*h[t-1]) / (L[t]/L[t-1]) # evolucion de h
+y[t] <- k[t]^alpha * h[t]^beta # funcion de produccion per capit
+
+
+
+data <- data.frame()
+
+
+
+for (s_k in s) {
+  L[n,1] = rdunif(1,1,30)
+  for (variable in vector) {
+    L[t] <- a*L[t-1]*exp(-b*L[t-1]) #Ricker
+    data <- as.data.frame(cbind())
+  }
+  n =n+1
+}
+
+
+
+
+
+
+plot(n,main="Tasa de crecimiento de la población")
+plot(L,main="Tamaño de la población")
+
+
+
+
+
+
+
+
+
+
+
+
+# Equilibrio ----
+
+k.star = ((s_k^(1-beta)*s_h^(beta))/(delta))^(1/(1-alpha-beta))
+h.star = ((s_h^(1-alpha)*s_k^(alpha))/(delta))^(1/(1-alpha-beta))
+
+# Especificaciones de leyes generales de poblacion ----
+
+## Verhulst (1838) ----
+
+r = 0.03
+M = 300 # capacidad de carga
+
+L[t] <- L[t-1]*exp(r*(1-(L[t-1])/M))  #Verhulst (1838)
+
+
+## Beverton (1957) ----
+
+M = 300 # capacidad de carga
+b <- 0.08
+a <- M*b+1
+
+L[t] <- (a*L[t-1])/(1+b*L[t-1])
+
+## Ricker (1954) ----
+
+M = 300 # capacidad de carga
+b = 0.008
+a = exp(M*b) # para que converja a M tiene que: 1 < a < e^2 (7.389056)
+
+L[t] <- a*L[t-1]*exp(-b*L[t-1])
+
+## Hassell (1975) ----
+https://royalsocietypublishing.org/doi/10.1098/rsos.182178 # Hassell model
+
+M = 300 # capacidad de carga
+b = 0.2
+c = 1 # c = 1 corresponds to ideal contest competition, the limit c → ∞ corresponds to ideal scramble competition and c > 1 corresponds to varying combinations of scramble and contest.
+
+a = (M*b+1)^c
+
+L[t] <- (a*L[t-1]) / (1+b*L[t-1])^c
+
+# Graficos ----------------------------------------------------------------
+
+plot(n,main="Tasa de crecimiento de la población")
+plot(L,main="Tamaño de la población")
+
+###### gr?ficos #######
+
+ka=seq(0,15,0.1)
+plot(ka,ka^alpha,type="l",xlab="k",ylab=" ",lwd=2,lty=3,col="blue",main="Modelo de Solow")
+lines(ka,s*ka^alpha,col="red",lwd=2)
+lines(ka,(delta+n[t])*ka,col="green",lwd=2)
+segments(k[times],0,k[times],k[times]*(delta+n[t]),lty=2,lwd=2)
+
+segments(k[times],k[times]*(delta+n[times]),k[times],k[times]^alpha,lty=3,lwd=2)
+
+k_star=(s/(delta+n[times]))^(1/(1-alpha))
+y_star=(s/(delta+n[times]))^(alpha/(1-alpha))
+
+# evoluci?n de k 
+plot(k,type="l",main="Evoluci?n de k",xlab="t")
+segments(0,k.star,times,k.star,col="red",lty=3)
+
+# evoluci?n de y
+plot(y,type="l",main="Evoluci?n de y",xlab="t")
+segments(0,y_star,times,y_star,col="red",lty=3)
+
+# evoluci?n de la acumulaci?n de capital
+plot(s*k^alpha-k*(delta+n[times]),ylab="s*f(k)-k*(delta+n)",
+     main="Acumulaci?n de capital per c?pita",xlab="t")
+

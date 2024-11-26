@@ -1,0 +1,956 @@
+\documentclass[11pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage{natbib}
+\usetheme{Pittsburgh}
+\usepackage{verbatim} 
+\usepackage[english]{babel}
+\usepackage{epstopdf}
+\usepackage{multicol}
+%\titlegraphic{%\vspace*{1cm}
+%	\includegraphics[width=2.5cm]{logo_udelar}
+	%\hspace*{1cm}~%
+%		\includegraphics[width=3.5cm]{logo_FCEA.png}
+%}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\AtBeginSection{ 
+	\begin{frame}
+		\frametitle{Index}
+			\tableofcontents[currentsection]
+	\end{frame}
+}
+\begin{document}
+	\title{Modelos dinámicos y computacionales en Economía}
+	\subtitle{Mapas, órbitas, puntos fijos y puntos periódicos}
+	%\logo{}
+	\institute{FCEA, UDELAR}
+	\date{29 de agosto de 2024}
+	%\subject{}
+	%\setbeamercovered{transparent}
+	%\setbeamertemplate{navigation symbols}{}
+	\frame[plain]{\maketitle}
+%\setbeamertemplate{background}{\includegraphics[width=2 cm]{logo_FCEA.png}}
+
+\begin{frame}[allowframebreaks]
+\frametitle{Introducción a la dinámica discreta en la recta real}
+Con el término dinámica nos referimos en general al estudio de procesos que evolucionan en el tiempo, y el correspondiente sistema de reglas que describe esta evolución se llama sistema dinámico.
+
+Nosotros adoptaremos reglas determinísticas, lo que significa que el estado presente de la evolución esta únicamente determinado por los estados pasados.
+
+La aleatoriedad no estará presente en nuestra definición de sistema dinámico y ademas nos restringiremos al estudio de sistemas dinámicos a tiempo discreto donde las reglas que describen la evolución están dadas por un conjunto de ecuaciones en diferencias finitas.
+
+Nos restringimos al caso unidimensional (una única variable de estado), eso nos permitirá usar la estructura topológica de la recta real y las propiedades de continuidad y diferenciabilidad de las funciones de variable real para estudiar las propiedades de los sistemas dinámicos.
+
+El objetivo central es entender como es la órbita de un punto cualquiera cuando es iterado repetidamente por la misma función:
+
+$$
+\left\{\begin{array}{c}
+x_{1}=f\left(x_{0}\right) \\
+x_{t+1}=f\left(x_{t}\right) ; \forall t \geq 0
+\end{array}\right.
+$$
+
+En particular interesa entender que pasa con la órbita de un punto cuando $t$ tiende a $+\infty$, pues esto resume el carácter de la dinámica.
+
+Una posibilidad es que haya un punto fijo atractor $p_{0}$ tal que para todo punto $x$ en un entorno de $p_{0}, f^{t}(x) \rightarrow p_{0}$.
+
+Esta situacion simple es solo una de las posibles; puede suceder que el atractor no sea para nada un objeto geométrico simple.
+
+El atractor puede ser un conjunto de Cantor como se puede ver que sucede para mapas unidimensionales muy simples.
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+\frametitle{Algunas definiciones:}
+
+\begin{itemize}
+  \item Entendemos por mapa una función continua de un espacio, llamado el dominio, en si mismo y en el contexto unidimensional en el que trabajaremos, el dominio debe ser un intervalo de la recta real. Un sistema dinámico discreto es generado por la iteración de un mapa. Esto es, el mapa es aplicado una y otra vez, y los puntos se mueven en una trayectoria.
+  \item Si $f: I \rightarrow I$ es un mapa, eligiendo una condición inicial $p_{0}$, sea $p_{1}=f\left(p_{0}\right)$ y en general $p_{t+1}=f\left(p_{t}\right)$ para $t \geq 0$. La sucesión infinita $\left(p_{t}\right)_{t \in \mathbb{N}}=\left(f^{t}\left(p_{0}\right)\right)_{t \in \mathbb{N}}$ se llama la trayectoria de $p_{0}$.
+\end{itemize}
+
+Esta sucesión puede tomar un mismo valor repetidas veces; el mínimo conjunto de puntos que contiene la trayectoria se llama la órbita del punto $p_{0}$ bajo $f$ y se denota por $o\left(p_{0}\right)$.
+
+\begin{itemize}
+  \item El objetivo central de la teoría de los sistemas dinámicos discretos es describir completamente las órbitas de un mapa.
+\end{itemize}
+
+Hay muchos tipos distintos de órbitas en un sistema dinámico típico. Seguramente los tipos mas importantes de órbitas son los puntos fijos y los ciclos que introduciremos a continuación.
+
+En los ejemplos ilustraremos otros tipos de órbitas (convergentes a un punto fijo, divergentes al infinito, etc.) y mas adelante describiremos otros tipos de órbitas mas complicadas.
+
+\begin{block}{Definición: punto periódico}
+Decimos que $p \in I$ es un punto periódico de $f$ de período $k$ si $f^{k}(p)=p$ $y f^{j}(p) \neq p$ para $j=1,2, \ldots, k-1$.\\
+Un punto fijo, definido por $f(p)=p$, es un tipo especial de punto periódico cuya órbita contiene un único punto. $o(p)=\{p\}$
+\end{block}
+
+\begin{block}{Definición: Mapa}
+Sea $f: I \rightarrow I$ un mapa. Decimos que el punto $p$ es un punto eventualmente fijo de $f$ si existe $j \in \mathbb{N}$ tal que $f^{t+1}(p)=f^{t}(p)$ para todo $t \geq j$.\\
+Decimos que el punto $p$ es un punto eventualmente periódico de $f$ si existen $j, i \in \mathbb{N}$ tal que $f^{k+j}(p)=f^{k}(p)$ para todo $k \geq i$. O sea que un punto es eventualmente fijo (periódico) si tiene algún punto iterado fijo (periódico).
+\end{block}
+
+\begin{itemize}
+  \item La órbita de un punto periódico es finita y su numero de elementos es el período del ciclo.
+  \item Si una órbita periódica contiene $k$ puntos decimos que es un $k$ - ciclo.
+  \item Una función real tiene un punto fijo en $p$ si y solo si el punto $(p, p)$ pertenece a su gráfico.\\
+Luego, una funcion tiene un punto fijo en $p$ si y solo si su gráfico interseca la recta $y=x$ en el punto $(p, p)$. Esto nos dá un método gráfico para encontrar los puntos fijos de un mapa.
+  \item Si $p$ es un punto periódico de período $k$ de $f$ entonces es un punto fijo de $f^{k}$. El recíproco no es verdadero pues $p$ podria tener período menor que $k$.
+  \item Los puntos fijos son tambien llamados equilibrios o estados estacionarios del sistema dinámico.
+  \item Ya que los puntos fijos son importantes para analizar la dinámica de un sistema, enunciaremos las siguientes condiciones suficientes para la existencia de puntos fijos:\\
+(1) Sean $I=[a, b]$ un intervalo cerrado y acotado y $f: I \rightarrow I$ una función continua. Entonces $f$ tiene al menos un punto fijo en $I$.\\
+(2) Sean $I=[a, b]$ un intervalo cerrado y acotado y $f: I \rightarrow \mathbb{R}$ una función continua. Si $f(I) \subseteq I$ entonces $f$ tiene al menos un punto fijo en $I$.\\
+Ambas proposiciones son consecuencia directa del Teorema de Darboux (o del valor intermedio)
+  \item Para encontrar los puntos fijos de un mapa $f$ es suficiente con resolver la ecuación
+\end{itemize}
+$$
+f(x)=x
+$$
+
+Buscar los puntos periódicos de período $k$ es una tarea mucho mas dura pues hay que resolver la ecuación
+
+$$
+f^{k}(x)=x
+$$
+
+y para valores de $k$ grandes esto puede resultar algebraicamente complicado, aún para los mapas polinómicos. El gráfico del mapa $f^{k}$ puede ayudar a resolver esta tarea. Una vez encontrados los puntos periódicos, para buscar los puntos eventualmente periódicos, se resuelven las ecuaciones $f^{n}(x)=p$, para todo $p$ periódico $y$ $n=1,2,3, \ldots$
+\end{frame}
+
+\section*{Ejemplo}
+El mapa identidad $f(x)=x$ tiene todos sus puntos fijos.
+
+\section*{Ejemplo}
+El mapa identidad $f(x)=x$ tiene todos sus puntos fijos.
+
+\section*{Ejemplo}
+El mapa $f(x)=-x$ tiene punto fijo $0 y$ todos los demas puntos son 2 - ciclos.
+
+\section*{Ejemplo}
+El mapa identidad $f(x)=x$ tiene todos sus puntos fijos.
+
+\section*{Ejemplo}
+El mapa $f(x)=-x$ tiene punto fijo $0 y$ todos los demas puntos son 2 - ciclos.
+
+\section*{Ejemplo}
+Sea el mapa lineal $f(x)=a x+b$. En los ejemplos anteriores estudiamos este mapa para $a= \pm 1$ y $b=0$.
+
+\section*{Ejemplo}
+El mapa identidad $f(x)=x$ tiene todos sus puntos fijos.
+
+\section*{Ejemplo}
+El mapa $f(x)=-x$ tiene punto fijo $0 y$ todos los demas puntos son 2 - ciclos.
+
+\section*{Ejemplo}
+Sea el mapa lineal $f(x)=a x+b$. En los ejemplos anteriores estudiamos este mapa para $a= \pm 1$ y $b=0$.
+
+\begin{itemize}
+  \item Si $a=1$ y $b \neq 0$ entonces $f$ no tiene puntos fijos ni periódicos.
+\end{itemize}
+
+\section*{Ejemplo}
+El mapa identidad $f(x)=x$ tiene todos sus puntos fijos.
+
+\section*{Ejemplo}
+El mapa $f(x)=-x$ tiene punto fijo $0 y$ todos los demas puntos son 2 - ciclos.
+
+\section*{Ejemplo}
+Sea el mapa lineal $f(x)=a x+b$. En los ejemplos anteriores estudiamos este mapa para $a= \pm 1$ y $b=0$.
+
+\begin{itemize}
+  \item Si $a=1$ y $b \neq 0$ entonces $f$ no tiene puntos fijos ni periódicos.
+  \item Si $a \neq 1$ entonces $f$ tiene un único punto fijo $p=\frac{b}{1-a}$
+\end{itemize}
+
+\section*{Ejemplo}
+El mapa identidad $f(x)=x$ tiene todos sus puntos fijos.
+
+\section*{Ejemplo}
+El mapa $f(x)=-x$ tiene punto fijo $0 y$ todos los demas puntos son 2 - ciclos.
+
+\section*{Ejemplo}
+Sea el mapa lineal $f(x)=a x+b$. En los ejemplos anteriores estudiamos este mapa para $a= \pm 1$ y $b=0$.
+
+\begin{itemize}
+  \item Si $a=1$ y $b \neq 0$ entonces $f$ no tiene puntos fijos ni periódicos.
+  \item Si $a \neq 1$ entonces $f$ tiene un único punto fijo $p=\frac{b}{1-a}$
+  \item si $a \neq-1$ no tiene puntos periódicos.
+\end{itemize}
+
+\section*{Ejemplo}
+El mapa identidad $f(x)=x$ tiene todos sus puntos fijos.
+
+\section*{Ejemplo}
+El mapa $f(x)=-x$ tiene punto fijo $0 y$ todos los demas puntos son 2 - ciclos.
+
+\section*{Ejemplo}
+Sea el mapa lineal $f(x)=a x+b$. En los ejemplos anteriores estudiamos este mapa para $a= \pm 1$ y $b=0$.
+
+\begin{itemize}
+  \item Si $a=1$ y $b \neq 0$ entonces $f$ no tiene puntos fijos ni periódicos.
+  \item Si $a \neq 1$ entonces $f$ tiene un único punto fijo $p=\frac{b}{1-a}$
+  \item si $a \neq-1$ no tiene puntos periódicos.
+  \item Cuando $a=-1$, todos los puntos distintos de $p$ son periódicos de período dos.
+\end{itemize}
+
+\section*{Ejemplo}
+El mapa $f(x)=x^{2}$ tiene puntos fijos 0 y 1
+
+\section*{Ejemplo}
+El mapa $f(x)=x^{2}$ tiene puntos fijos 0 y 1 y -1 es el único punto eventualmente fijo. $\left(f(-1)=1\right.$ y $\left.f^{2}(-1)=1\right)$
+
+\section*{Ejemplo}
+El mapa $f(x)=x^{2}$ tiene puntos fijos 0 y 1 y-1 es el único punto eventualmente fijo. $\left(f(-1)=1\right.$ y $\left.f^{2}(-1)=1\right)$\\
+Ademas es fácil ver que la ecuación $f^{k}(x)=x$ tiene como únicas raices reales 0 y 1 y por lo tanto $f$ no tiene puntos periódicos.
+
+\section*{Ejemplo}
+El mapa $f(x)=x^{2}$ tiene puntos fijos 0 y 1 y-1 es el único punto eventualmente fijo. $\left(f(-1)=1\right.$ y $\left.f^{2}(-1)=1\right)$\\
+Ademas es fácil ver que la ecuación $f^{k}(x)=x$ tiene como únicas raices reales 0 y 1 y por lo tanto $f$ no tiene puntos periódicos.
+
+\section*{Ejemplo}
+El mapa $f(x)=2-x^{2}$ tiene puntos fijos $1 y-2$
+
+\section*{Ejemplo}
+El mapa $f(x)=x^{2}$ tiene puntos fijos 0 y 1 y-1 es el único punto eventualmente fijo. $\left(f(-1)=1\right.$ y $\left.f^{2}(-1)=1\right)$\\
+Ademas es fácil ver que la ecuación $f^{k}(x)=x$ tiene como únicas raices reales 0 y 1 y por lo tanto $f$ no tiene puntos periódicos.
+
+\section*{Ejemplo}
+El mapa $f(x)=2-x^{2}$ tiene puntos fijos $1 y-2$ y $2-$ ciclo $\left\{\frac{1 \pm \sqrt{5}}{2}\right\}$.
+
+\section*{Ejemplo}
+El mapa $f(x)=|x-1|$ tiene un único punto fijo $p=\frac{1}{2}$ que es la solución $d e|x-1|=x$
+
+\section*{Ejemplo}
+El mapa $f(x)=|x-1|$ tiene un único punto fijo $p=\frac{1}{2}$ que es la solución $d e|x-1|=x$\\
+Las preimágenes de $p=\frac{1}{2}$ por $f^{k}$ son los puntos del tipo $q=\frac{1}{2}+z$, con $z$ entero y por lo tanto estos son todos los puntos eventualmente fijos.
+
+\section*{Ejemplo}
+El mapa $f(x)=|x-1|$ tiene un único punto fijo $p=\frac{1}{2}$ que es la solución $d e|x-1|=x$\\
+Las preimágenes de $p=\frac{1}{2}$ por $f^{k}$ son los puntos del tipo $q=\frac{1}{2}+z$, con $z$ entero y por lo tanto estos son todos los puntos eventualmente fijos. Para encontrar los 2 - ciclos debemos resolver la ecuación $f^{2}(x)=x$
+
+\section*{Ejemplo}
+El mapa $f(x)=|x-1|$ tiene un único punto fijo $p=\frac{1}{2}$ que es la solución $d e|x-1|=x$\\
+Las preimágenes de $p=\frac{1}{2}$ por $f^{k}$ son los puntos del tipo $q=\frac{1}{2}+z$, con $z$ entero y por lo tanto estos son todos los puntos eventualmente fijos. Para encontrar los 2 - ciclos debemos resolver la ecuación $f^{2}(x)=x$. Es fácil ver que:
+
+$$
+f^{2}(x)=\left\{\begin{array}{c}
+x-2, \text { si } x \geq 2 \\
+-x+2, \text { si } 1 \leq x<2 \\
+x, \text { si } 0 \leq x<1 \\
+-x, \text { si } x<0
+\end{array}\right.
+$$
+
+$y$ por lo tanto todos los puntos pertenecientes a $[0,1]-\left\{\frac{1}{2}\right\}$
+
+\section*{Ejemplo}
+El mapa $f(x)=|x-1|$ tiene un único punto fijo $p=\frac{1}{2}$ que es la solución $d e|x-1|=x$\\
+Las preimágenes de $p=\frac{1}{2}$ por $f^{k}$ son los puntos del tipo $q=\frac{1}{2}+z$, con $z$ entero y por lo tanto estos son todos los puntos eventualmente fijos. Para encontrar los 2 - ciclos debemos resolver la ecuación $f^{2}(x)=x$. Es fácil ver que:
+
+$$
+f^{2}(x)=\left\{\begin{array}{c}
+x-2, \text { si } x \geq 2 \\
+-x+2, \text { si } 1 \leq x<2 \\
+x, \text { si } 0 \leq x<1 \\
+-x, \text { si } x<0
+\end{array}\right.
+$$
+
+y por lo tanto todos los puntos pertenecientes a $[0,1]-\left\{\frac{1}{2}\right\}$ son los únicos puntos periódicos de período 2 .
+
+Finalmente, cualquier otro punto $z$ no clasificado hasta ahora es eventualmente periódico pues algún iterado de $z$ esta $[0,1]-\left\{\frac{1}{2}\right\}$.
+
+Finalmente, cualquier otro punto $z$ no clasificado hasta ahora es eventualmente periódico pues algún iterado de $z$ esta $[0,1]-\left\{\frac{1}{2}\right\}$.
+
+Para probar esto, basta observar que $f([n, n+1])=[n-1, n]$ para todo natural $n \geq 1$ y que $f((-\infty, 0])=[1,+\infty]$.\\
+vamos a introducir un método gráfico para representar y analizar las órbitas de los sistemas dinámicos unidimensionales.
+
+Este método utiliza la gráfica del mapa para representar su dinámica.
+
+\section*{Método gráfico (de la telaraña o cobweb)}
+descripción general del método:\\
+Dado el mapa $f: I \rightarrow I$, tomemos un punto $x_{0}$ en el eje $O x$. Trazamos por este punto una recta vertical que corta a $y=x$ en $\left(x_{0}, x_{0}\right)$ y al gráfico del mapa $f$ en $\left(x_{0}, f\left(x_{0}\right)\right)$.\\
+Luego trazamos el segmento vertical desde este punto hacia el punto de la diagonal $\left(f\left(x_{0}\right), f\left(x_{0}\right)\right)$.\\
+Gráficamente esto muestra como pasamos del punto $x_{0}$ al punto $x_{1}=f\left(x_{0}\right)$. Repetimos el proceso con el segmento de recta de $\left(x_{1}, x_{1}\right)$ a $\left(x_{1}, f\left(x_{1}\right)\right)$ y luego de $\left(x_{1}, f\left(x_{1}\right)\right)$ a $\left(f\left(x_{1}\right), f\left(x_{1}\right)\right)$ obtenemos el siguiente punto $x_{2}=f\left(x_{1}\right)$. La repetición de este proceso determina la órbita del punto $x_{0}$.
+
+\section*{telaraña para el mapa cuadrático}
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_08_29_8d76ce1fd6e498d640f2g-059}
+\end{center}
+
+Proceso de la telaraña para el mapa cuadrático $f(x)=x^{2}$ y condición i
+
+$$
+x_{0} \text { tal que }-1<x_{0}<0 \text {. }
+$$
+
+\section*{Ejemplo}
+Consideremos el mapa $g(x)=2 x(1-x)$. El gráfico de $g$ y de la recta $y=x$ estan dibujados en la siguiente figura. Tambien está representada la órbita del punto 0.1 que converge al punto fijo $\frac{1}{2}$.
+
+\section*{Ejemplo}
+Consideremos el mapa $g(x)=2 x(1-x)$. El gráfico de $g$ y de la recta $y=x$ estan dibujados en la siguiente figura. Tambien está representada la órbita del punto 0.1 que converge al punto fijo $\frac{1}{2}$.
+
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_08_29_8d76ce1fd6e498d640f2g-061}
+\end{center}
+
+\section*{Ejemplo}
+Consideremos el mapa $f(x)=\frac{3 x-x^{3}}{2}$. El gráfico de $f y$ de la recta $y=x$ estan dibujados en la siguiente figura. Tambien están representada las órbitas con condiciones iniciales 1.6 y 1.8 que convergen a los puntos fijos $\pm 1$
+
+\section*{Ejemplo}
+Consideremos el mapa $f(x)=\frac{3 x-x^{3}}{2}$. El gráfico de $f$ y de la recta $y=x$ estan dibujados en la siguiente figura. Tambien están representada las órbitas con condiciones iniciales 1.6 y 1.8 que convergen a los puntos fijos $\pm 1$
+
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_08_29_8d76ce1fd6e498d640f2g-063}
+\end{center}
+
+\section*{Ejemplo}
+Consideremos el mapa logístico $f(x)=4 x(1-x)$. Hallar los puntos fijos, los puntos eventualmente fijos, las órbitas periódicas de período dos y los puntos eventualmente periódicos de período dos.
+
+\section*{Puntos fijos}
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_08_29_8d76ce1fd6e498d640f2g-065}
+\end{center}
+
+DEPARTAMENTO DE
+
+\section*{Puntos fijos}
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_08_29_8d76ce1fd6e498d640f2g-066}
+\end{center}
+
+Puntos fijos: 0 y $\frac{3}{4}\left(f(0)=0\right.$ y $\left.f\left(\frac{3}{4}\right)=\frac{3}{4}\right)$
+
+\section*{Puntos eventualmente fijos}
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_08_29_8d76ce1fd6e498d640f2g-067}
+\end{center}
+
+\section*{Puntos eventualmente fijos}
+\includegraphics[max width=\textwidth, center]{2024_08_29_8d76ce1fd6e498d640f2g-068}\\
+$\frac{1}{4}$ es eventualmente fijo: $f\left(\frac{1}{4}\right)=\frac{3}{4}$ y $f\left(\frac{3}{4}\right)=\frac{3}{4}$
+
+\section*{Puntos eventualmente fijos}
+\includegraphics[max width=\textwidth, center]{2024_08_29_8d76ce1fd6e498d640f2g-069}\\
+$\frac{1}{4}$ es eventualmente fijo: $f\left(\frac{1}{4}\right)=\frac{3}{4}$ y $f\left(\frac{3}{4}\right)=\frac{3}{4}$\\
+$\frac{1}{2}-\frac{\sqrt{3}}{4}$ también es eventualmente fijo: $f\left(\frac{1}{2}-\frac{\sqrt{3}}{4}\right)=\frac{1}{4}$
+
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_08_29_8d76ce1fd6e498d640f2g-070}
+\end{center}
+
+DEPARTAMENTO DE
+
+\includegraphics[max width=\textwidth, center]{2024_08_29_8d76ce1fd6e498d640f2g-071}\\
+$\frac{1}{2}$ es eventualmente fijo: $f\left(\frac{1}{2}\right)=1$ y $f(1)=0$
+
+\section*{Puntos periódicos de periodo 2}
+\section*{Puntos periódicos de periodo 2}
+Puntos fijos de $f^{2}$ que no son puntos fijos de $f$
+
+\section*{Puntos periódicos de periodo 2}
+Puntos fijos de $f^{2}$ que no son puntos fijos de $f$
+
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_08_29_8d76ce1fd6e498d640f2g-074}
+\end{center}
+
+\section*{Puntos periódicos de periodo 2}
+Puntos fijos de $f^{2}$ que no son puntos fijos de $f$
+
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_08_29_8d76ce1fd6e498d640f2g-075}
+\end{center}
+
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_08_29_8d76ce1fd6e498d640f2g-075(1)}
+\end{center}
+
+\section*{Puntos periodicos de periodo 3}
+\section*{Puntos periodicos de periodo 3}
+Puntos fijos de $f^{3}$ que no son puntos fijos de $f$ ni de $f^{2}$
+
+\section*{Puntos periodicos de periodo 3}
+Puntos fijos de $f^{3}$ que no son puntos fijos de $f$ ni de $f^{2}$
+
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_08_29_8d76ce1fd6e498d640f2g-078}
+\end{center}
+
+\section*{Puntos periodicos de periodo 3}
+Puntos fijos de $f^{3}$ que no son puntos fijos de $f$ ni de $f^{2}$
+
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_08_29_8d76ce1fd6e498d640f2g-079}
+\end{center}
+
+\section*{Otro ejemplo}
+\section*{Ejemplo}
+Consideremos el mapa $f(x)=-x^{\frac{1}{3}}$. El gráfico de $f$ de la recta $y=x$
+
+\section*{Otro ejemplo}
+\section*{Ejemplo}
+Consideremos el mapa $f(x)=-x^{\frac{1}{3}}$. El gráfico de $f y$ de la recta $y=x$ estan dibujados en la siguiente figura.
+
+\begin{center}
+\includegraphics[max width=\textwidth]{2024_08_29_8d76ce1fd6e498d640f2g-081}
+\end{center}
+
+\section*{Único punto fijo es el origen.}
+Único punto fijo es el origen.\\
+resolviendo la ecuación $f^{2}(x)=x$, que se puede escribir como $x^{1 / 3}=x$
+
+Único punto fijo es el origen.\\
+resolviendo la ecuación $f^{2}(x)=x$, que se puede escribir como $x^{1 / 3}=x$ tenemos que el único $2-$ ciclo de $f$ es $\{-1,1\}$.\\
+Empezemos el proceso de la telaraña con un punto a cercano al 0 y en el intervalo $(0,1)$. Partiendo de la condición inicial $x=a$ hacemos un análisis gráfico de la órbita usando el proceso de la telaraña y podemos ver que $f^{t}(a)$ converge a la órbita periódica de período dos $\{-1,1\}$.
+
+Único punto fijo es el origen.\\
+resolviendo la ecuación $f^{2}(x)=x$, que se puede escribir como $x^{1 / 3}=x$ tenemos que el único $2-$ ciclo de $f$ es $\{-1,1\}$.\\
+Empezemos el proceso de la telaraña con un punto a cercano al 0 y en el intervalo $(0,1)$. Partiendo de la condición inicial $x=a$ hacemos un análisis gráfico de la órbita usando el proceso de la telaraña y podemos ver que $f^{t}(a)$ converge a la órbita periódica de período dos $\{-1,1\}$. Esto es válido para todo $a \in(0,1) \neq 0$. Estos son los ciclos límite.
+
+\section*{Definición}
+Sea $f: I \rightarrow I$ un mapa y un punto cualquiera $p$ de $I$. Decimos que el punto $x \in I$ es asintótico a $p$ si $y$ solo si
+
+\section*{Definición}
+Sea $f: I \rightarrow I$ un mapa y un punto cualquiera $p$ de $I$. Decimos que el punto $x \in I$ es asintótico a p si $y$ solo si
+
+$$
+\lim _{t \rightarrow+\infty}\left[f^{t}(x)-f^{t}(p)\right]=0
+$$
+
+\section*{Definición}
+Sea $f: I \rightarrow I$ un mapa y un punto cualquiera $p$ de $I$. Decimos que el punto $x \in I$ es asintótico a $p$ si $y$ solo si
+
+$$
+\lim _{t \rightarrow+\infty}\left[f^{t}(x)-f^{t}(p)\right]=0
+$$
+
+En particular, si $p$ es un punto periódico de período $k, x$ es asintótico a $p$ si $y$ solo si
+
+$$
+\lim _{t \rightarrow+\infty} f^{t k}(x)=p
+$$
+
+\section*{Definición}
+Sea $f: I \rightarrow I$ un mapa y un punto cualquiera $p$ de $I$. Decimos que el punto $x \in I$ es asintótico a $p$ si $y$ solo si
+
+$$
+\lim _{t \rightarrow+\infty}\left[f^{t}(x)-f^{t}(p)\right]=0
+$$
+
+En particular, si $p$ es un punto periódico de período $k, x$ es asintótico a $p$ si $y$ solo si
+
+$$
+\lim _{t \rightarrow+\infty} f^{t k}(x)=p
+$$
+
+y en este caso decimos que la órbita de $x$ es un k-ciclo límite con límite la órbita de $p$.
+
+\section*{Definición}
+Se llama variedad estable de $p$ y se denota por $W^{S}(p)$ al conjunto de todos los puntos de I que son asintóticos a $p$
+
+\section*{Definición}
+Se llama variedad estable de $p$ y se denota por $W^{S}(p)$ al conjunto de todos los puntos de I que son asintóticos a p. Si la sucesión $\left|f^{t}(x)\right|$ crece $y$ es no acotada decimos que $x$ es asintótico a infinito. Se llama variedad estable de infinito y se denota por $W^{S}(\infty)$ al conjunto de todos los puntos de I que son asintóticos a infinito.
+
+\section*{Definición}
+Se llama variedad estable de $p$ y se denota por $W^{S}(p)$ al conjunto de todos los puntos de I que son asintóticos a p. Si la sucesión $\left|f^{t}(x)\right|$ crece $y$ es no acotada decimos que $x$ es asintótico a infinito. Se llama variedad estable de infinito y se denota por $W^{S}(\infty)$ al conjunto de todos los puntos de I que son asintóticos a infinito.
+
+\begin{itemize}
+  \item La variedad estable de un punto $p$ es no vacía pues al menos $p \in$ $W^{S}(p)$
+\end{itemize}
+
+\section*{Definición}
+Se llama variedad estable de $p$ y se denota por $W^{S}(p)$ al conjunto de todos los puntos de I que son asintóticos a p. Si la sucesión $\left|f^{t}(x)\right|$ crece $y$ es no acotada decimos que $x$ es asintótico a infinito. Se llama variedad estable de infinito y se denota por $W^{S}(\infty)$ al conjunto de todos los puntos de I que son asintóticos a infinito.
+
+\begin{itemize}
+  \item La variedad estable de un punto $p$ es no vacía pues al menos $p \in$ $W^{S}(p)$.
+  \item Si $p \neq q$ son puntos periódicos distintos entonces $W^{S}(p)$ $\cap W^{S}(q)=\theta$.
+\end{itemize}
+
+\section*{Definición}
+Se llama variedad estable de $p$ y se denota por $W^{S}(p)$ al conjunto de todos los puntos de I que son asintóticos a p. Si la sucesión $\left|f^{t}(x)\right|$ crece $y$ es no acotada decimos que $x$ es asintótico a infinito. Se llama variedad estable de infinito y se denota por $W^{S}(\infty)$ al conjunto de todos los puntos de I que son asintóticos a infinito.
+
+\begin{itemize}
+  \item La variedad estable de un punto $p$ es no vacía pues al menos $p \in$ $W^{S}(p)$.
+  \item Si $p \neq q$ son puntos periódicos distintos entonces $W^{S}(p)$ $\cap W^{S}(q)=\theta$
+  \item En el mapa $f(x)=2 x(1-x)$ es $W^{S}(0)=\{0,1\}, W^{S}\left(\frac{1}{2}\right)=(0,1)$ y $W^{S}(\infty)=(-\infty, 0) \cup(1,+\infty)$
+\end{itemize}
+
+\section*{Estabilidad.}
+\section*{Definición}
+Si $f: I \rightarrow I$ es un mapa y $p$ es un punto de $I$, decimos que $p$ es estable si $y$ solo si $\forall \epsilon>0, \exists \delta>0$ tal que si $x \in I y|x-p|<\delta$ entonces $\left|f^{t}(x)-f^{t}(p)\right|<\epsilon, \forall t \in \mathbb{N}$.
+
+\section*{Estabilidad.}
+\section*{Definición}
+Si $f: I \rightarrow I$ es un mapa y $p$ es un punto de $I$, decimos que $p$ es estable si $y$ solo si $\forall \epsilon>0, \exists \delta>0$ tal que si $x \in I y|x-p|<\delta$ entonces $\left|f^{t}(x)-f^{t}(p)\right|<\epsilon, \forall t \in \mathbb{N}$.
+
+Decimos que $p$ es asintóticamente estable si $y$ solos es estable y $W^{S}(p)$ contiene un entorno de $p$ en $I$.
+
+\section*{Observación (1)}
+p es un punto asintóticamente estable si y solo si es estable $y \exists \delta>0$ tal que si $x \in I y|x-p|<\delta$ entonces $\lim _{t \rightarrow+\infty}\left[f^{t}(x)-f^{t}(p)\right]=0$.
+
+\section*{Observación (1)}
+$p$ es un punto asintóticamente estable si y solo si es estable $y \exists \delta>0$ tal que si $x \in I y|x-p|<\delta$ entonces $\lim _{t \rightarrow+\infty}\left[f^{t}(x)-f^{t}(p)\right]=0$.
+
+\section*{Observación}
+En el mapa $f(x)=-x$, el punto fijo 0 es estable $y$ no es asintóticamente estable.
+
+\section*{Observación (1)}
+$p$ es un punto asintóticamente estable si y solo si es estable $y \exists \delta>0$ tal que si $x \in I y|x-p|<\delta$ entonces $\lim _{t \rightarrow+\infty}\left[f^{t}(x)-f^{t}(p)\right]=0$.
+
+\section*{Observación}
+En el mapa $f(x)=-x$, el punto fijo 0 es estable $y$ no es asintóticamente estable.
+
+\section*{Observación (2)}
+Si un punto $p$ es estable, entonces para todo punto $x$ suficientemente cercano a p la órbita de $x$ se mantiene cercana a la órbita de $p$.
+
+\section*{Observación (1)}
+$p$ es un punto asintóticamente estable si y solo si es estable $y \exists \delta>0$ tal que si $x \in I y|x-p|<\delta$ entonces $\lim _{t \rightarrow+\infty}\left[f^{t}(x)-f^{t}(p)\right]=0$.
+
+\section*{Observación}
+En el mapa $f(x)=-x$, el punto fijo 0 es estable $y$ no es asintóticamente estable.
+
+\section*{Observación (2)}
+Si un punto $p$ es estable, entonces para todo punto $x$ suficientemente cercano a p la órbita de $x$ se mantiene cercana a la órbita de $p$.\\
+Si ademas es asintóticamente estable, las órbitas de todos los puntos suficientemente cercanos a $p$ tienden a ser la órbita de $p$.
+
+\section*{Observación}
+Si un punto no es estable decimos que es inestable.
+
+\section*{Observación}
+Si un punto no es estable decimos que es inestable.\\
+Si $p$ es un punto fijo de un sistema dinámico discreto dado por $x_{t+1}=f\left(x_{t}\right)$ (es lo mismo que decir que $f$ es un mapa) y se satisface la condición que para todo $\delta>0$ existen un punto $x_{1} y$ un natural to tal que $\left|x_{0}-p\right|<\delta y$\\
+$\left|x_{t}-p\right| \geq \delta \forall t \geq t_{0}$
+
+\section*{Observación}
+Si un punto no es estable decimos que es inestable.\\
+Si $p$ es un punto fijo de un sistema dinámico discreto dado por\\
+$x_{t+1}=f\left(x_{t}\right)$ (es lo mismo que decir que $f$ es un mapa) y se satisface la condición que para todo $\delta>0$ existen un punto $x_{1} y$ un natural to tal que $\left|x_{0}-p\right|<\delta y$\\
+$\left|x_{t}-p\right| \geq \delta \forall t \geq t_{0}$\\
+Es decir, todos los puntos cercanos a p, sus iterados se alejan de $p$, se dice que el equilibrio es inestable.
+
+\section*{Observación}
+La cuestión de la estabilidad es importante pues en los sistemas dinámicos del mundo real (que estan sujetos a pequeñas perturbaciones) si uno observa un equilibrio, este debe ser estable.
+
+\section*{Observación}
+La cuestión de la estabilidad es importante pues en los sistemas dinámicos del mundo real (que estan sujetos a pequeñas perturbaciones) si uno observa un equilibrio, este debe ser estable.\\
+Si un punto fijo es inestable, pequeñas perturbaciones hacen que la órbita se aleje del punto fijo y por lo tanto este no será observable.
+
+\section*{Definición}
+Si $f: I \rightarrow I$ es un mapa y $p$ es un punto periódico de período $k$ de $f$, decimos que $p$ es un atractor (o sumidero) si $y$ solo si $p$ es asintóticamente estable.
+
+\section*{Definición}
+Si $f: I \rightarrow I$ es un mapa y $p$ es un punto periódico de período $k$ de $f$, decimos que $p$ es un atractor (o sumidero) si y solo si $p$ es asintóticamente estable.\\
+Decimos que $p$ es un repulsor (o fuente) si y solo si $\exists \delta>0$ tal que si $x \in I, x \neq p y|x-p|<\delta$ entonces existe $t=t(x) \in \mathbb{N}$ tal que $\left|f^{t k}(x)-p\right|>\delta$.
+
+\section*{Definición}
+Si $f: I \rightarrow I$ es un mapa y $p$ es un punto periódico de período $k$ de $f$, decimos que $p$ es un atractor (o sumidero) si $y$ solo si $p$ es asintóticamente estable.\\
+Decimos que $p$ es un repulsor (o fuente) si y solo si $\exists \delta>0$ tal que si $x \in I, x \neq p y|x-p|<\delta$ entonces existe $t=t(x) \in \mathbb{N}$ tal que $\left|f^{t k}(x)-p\right|>\delta$.\\
+Si $p$ es inestable y no es repulsor diremos que es un punto silla.
+
+\section*{Observación}
+Un punto fijo atractor p tiene la propiedad de que puntos cercanos a él se acercan cada vez mas a p bajo el sistema dinámico.
+
+\section*{Observación}
+Un punto fijo atractor $p$ tiene la propiedad de que puntos cercanos a él se acercan cada vez mas a p bajo el sistema dinámico.
+
+\section*{Observación}
+Para un punto fijo repulsor $p$, puntos $x$ cercanos a él se alejan de $p$ bajo iteraciones con $f$. O sea que si $p$ es un punto fijo repulsor hay un entorno $E$ de $p$ en el cual todos los puntos distintos de p dejan $E$ bajo iteración por $f$.
+
+\section*{Observación}
+Un punto fijo atractor $p$ tiene la propiedad de que puntos cercanos a él se acercan cada vez mas a p bajo el sistema dinámico.
+
+\section*{Observación}
+Para un punto fijo repulsor $p$, puntos $x$ cercanos a él se alejan de $p$ bajo iteraciones con $f$. O sea que si $p$ es un punto fijo repulsor hay un entorno $E$ de $p$ en el cual todos los puntos distintos de $p$ dejan $E$ bajo iteración por $f$. Esto no quiere decir que todos los iterados de $x$ esten fuera de un entorno de centro $p$ a partir de un cierto natural $t_{0}$
+
+\section*{Observación}
+Un punto fijo atractor p tiene la propiedad de que puntos cercanos a él se acercan cada vez mas a p bajo el sistema dinámico.
+
+\section*{Observación}
+Para un punto fijo repulsor $p$, puntos $x$ cercanos a él se alejan de $p$ bajo iteraciones con $f$. O sea que si $p$ es un punto fijo repulsor hay un entorno $E$ de $p$ en el cual todos los puntos distintos de $p$ dejan E bajo iteración por $f$. Esto no quiere decir que todos los iterados de $x$ esten fuera de un entorno de centro $p$ a partir de un cierto natural $t_{0}$.\\
+Mas adelante veremos ejemplos de puntos fijos repulsores cuyos iterados retornan cerca de $p$ una $y$ otra vez.
+
+\section*{Observación}
+Los puntos periódicos atractores muy comunmente atraen órbitas de un conjunto bastante grande de condiciones iniciales cercanas.
+
+\section*{Observación}
+Los puntos periódicos atractores muy comunmente atraen órbitas de un conjunto bastante grande de condiciones iniciales cercanas.\\
+El conjunto de los puntos cuya órbita converge al atractor periódico $p$ (esto es, $W^{S}(p)$ ) se llama la cuenca de atracción de $p$.
+
+\section*{Observación}
+El mapa $f(x)=-x^{1 / 3}$ tiene un único punto fijo 0 que es un repulsor
+
+\section*{Observación}
+Los puntos periódicos atractores muy comunmente atraen órbitas de un conjunto bastante grande de condiciones iniciales cercanas.\\
+El conjunto de los puntos cuya órbita converge al atractor periódico $p$ (esto es, $W^{S}(p)$ ) se llama la cuenca de atracción de $p$.
+
+\section*{Observación}
+El mapa $f(x)=-x^{1 / 3}$ tiene un único punto fijo 0 que es un repulsor $y$ tiene un único 2-ciclo $\{-1,1\}$ que es un atractor periódico.
+
+\section*{Un criterio de clasificación}
+\section*{Teorema}
+Sea $f: \mathbb{R} \rightarrow \mathbb{R}$ una función de clase $C^{1}$ (esto es, con derivada primera continua). Entonces:
+
+\section*{Un criterio de clasificación}
+\section*{Teorema}
+Sea $f: \mathbb{R} \rightarrow \mathbb{R}$ una función de clase $C^{1}$ (esto es, con derivada primera continua). Entonces:\\
+(1) si $p$ es un punto fijo de $f$ con $\left|f^{\prime}(p)\right|<1$, entonces $p$ es un atractor.
+
+\section*{Un criterio de clasificación}
+\section*{Teorema}
+Sea $f: \mathbb{R} \rightarrow \mathbb{R}$ una función de clase $C^{1}$ (esto es, con derivada primera continua). Entonces:\\
+(1) si $p$ es un punto fijo de $f$ con $\left|f^{\prime}(p)\right|<1$, entonces $p$ es un atractor.\\
+(2) Si $p$ es un punto periódico de período $k$ de $f$ con $\left|\left(f^{k}\right)^{\prime}(p)\right|<1$, entonces $p$ es un atractor.
+
+\section*{Demostración: a) Como $\left|f^{\prime}(p)\right|<1$ y $f^{\prime}$ es continua}
+Demostración: a) Como $\left|f^{\prime}(p)\right|<1$ y $f^{\prime}$ es continua, $\exists \epsilon>0$ y $0<\lambda<1$ tales que $\left|f^{\prime}(p)\right|<\lambda, \forall x \in[p-\epsilon, p+\epsilon]$
+
+Demostración: a) Como $\left|f^{\prime}(p)\right|<1$ y $f^{\prime}$ es continua, $\exists \epsilon>0$ y $0<\lambda<1$ tales que $\left|f^{\prime}(p)\right|<\lambda, \forall x \in[p-\epsilon, p+\epsilon]$. Luego, por el teorema del valor medio, $\forall x \in[p-\epsilon, p+\epsilon], \exists z$ perteneciente al intervalo de extremos $p$ y $x$ tal que:
+
+Demostración: a) Como $\left|f^{\prime}(p)\right|<1$ y $f^{\prime}$ es continua, $\exists \epsilon>0$ y $0<\lambda<1$ tales que $\left|f^{\prime}(p)\right|<\lambda, \forall x \in[p-\epsilon, p+\epsilon]$. Luego, por el teorema del valor medio, $\forall x \in[p-\epsilon, p+\epsilon], \exists z$ perteneciente al intervalo de extremos $p$ y $x$ tal que:
+
+$$
+|f(x)-p|=|f(x)-f(p)|
+$$
+
+Demostración: a) Como $\left|f^{\prime}(p)\right|<1$ y $f^{\prime}$ es continua, $\exists \epsilon>0$ y $0<\lambda<1$ tales que $\left|f^{\prime}(p)\right|<\lambda, \forall x \in[p-\epsilon, p+\epsilon]$. Luego, por el teorema del valor medio, $\forall x \in[p-\epsilon, p+\epsilon], \exists z$ perteneciente al intervalo de extremos $p$ y $x$ tal que:
+
+$$
+|f(x)-p|=|f(x)-f(p)|=\left|f^{\prime}(z)\right||x-p|<\lambda|x-p|
+$$
+
+Demostración: a) Como $\left|f^{\prime}(p)\right|<1$ y $f^{\prime}$ es continua, $\exists \epsilon>0$ y $0<\lambda<1$ tales que $\left|f^{\prime}(p)\right|<\lambda, \forall x \in[p-\epsilon, p+\epsilon]$. Luego, por el teorema del valor medio, $\forall x \in[p-\epsilon, p+\epsilon], \exists z$ perteneciente al intervalo de extremos $p$ y $x$ tal que:
+
+$$
+|f(x)-p|=|f(x)-f(p)|=\left|f^{\prime}(z)\right||x-p|<\lambda|x-p|
+$$
+
+Como $\lambda<1$ es $|f(x)-p|<|x-p|$
+
+Demostración: a) Como $\left|f^{\prime}(p)\right|<1$ y $f^{\prime}$ es continua, $\exists \epsilon>0$ y $0<\lambda<1$ tales que $\left|f^{\prime}(p)\right|<\lambda, \forall x \in[p-\epsilon, p+\epsilon]$. Luego, por el teorema del valor medio, $\forall x \in[p-\epsilon, p+\epsilon], \exists z$ perteneciente al intervalo de extremos $p$ y $x$ tal que:
+
+$$
+|f(x)-p|=|f(x)-f(p)|=\left|f^{\prime}(z)\right||x-p|<\lambda|x-p|
+$$
+
+Como $\lambda<1$ es $|f(x)-p|<|x-p| \Longrightarrow f(x) \in[p-\epsilon, p+\epsilon]$ y podemos repetir el argumento $\Longrightarrow$
+
+$$
+\left|f^{2}(x)-p\right|
+$$
+
+Demostración: a) Como $\left|f^{\prime}(p)\right|<1$ y $f^{\prime}$ es continua, $\exists \epsilon>0$ y $0<\lambda<1$ tales que $\left|f^{\prime}(p)\right|<\lambda, \forall x \in[p-\epsilon, p+\epsilon]$. Luego, por el teorema del valor medio, $\forall x \in[p-\epsilon, p+\epsilon], \exists z$ perteneciente al intervalo de extremos $p$ y $x$ tal que:
+
+$$
+|f(x)-p|=|f(x)-f(p)|=\left|f^{\prime}(z)\right||x-p|<\lambda|x-p|
+$$
+
+Como $\lambda<1$ es $|f(x)-p|<|x-p| \Longrightarrow f(x) \in[p-\epsilon, p+\epsilon]$ y podemos repetir el argumento $\Longrightarrow$
+
+$$
+\left.\left|f^{2}(x)-p\right|=\mid f(f(x))-p\right)|<\lambda| f(x)-p \mid
+$$
+
+Demostración: a) Como $\left|f^{\prime}(p)\right|<1$ y $f^{\prime}$ es continua, $\exists \epsilon>0$ y $0<\lambda<1$ tales que $\left|f^{\prime}(p)\right|<\lambda, \forall x \in[p-\epsilon, p+\epsilon]$. Luego, por el teorema del valor medio, $\forall x \in[p-\epsilon, p+\epsilon], \exists z$ perteneciente al intervalo de extremos $p$ y $x$ tal que:
+
+$$
+|f(x)-p|=|f(x)-f(p)|=\left|f^{\prime}(z)\right||x-p|<\lambda|x-p|
+$$
+
+Como $\lambda<1$ es $|f(x)-p|<|x-p| \Longrightarrow f(x) \in[p-\epsilon, p+\epsilon]$ y podemos repetir el argumento $\Longrightarrow$
+
+$$
+\left.\left|f^{2}(x)-p\right|=\mid f(f(x))-p\right)|<\lambda| f(x)-p\left|<\lambda^{2}\right| x-p \mid
+$$
+
+Demostración: a) Como $\left|f^{\prime}(p)\right|<1$ y $f^{\prime}$ es continua, $\exists \epsilon>0$ y $0<\lambda<1$ tales que $\left|f^{\prime}(p)\right|<\lambda, \forall x \in[p-\epsilon, p+\epsilon]$. Luego, por el teorema del valor medio, $\forall x \in[p-\epsilon, p+\epsilon], \exists z$ perteneciente al intervalo de extremos $p$ y $x$ tal que:
+
+$$
+|f(x)-p|=|f(x)-f(p)|=\left|f^{\prime}(z)\right||x-p|<\lambda|x-p|
+$$
+
+Como $\lambda<1$ es $|f(x)-p|<|x-p| \Longrightarrow f(x) \in[p-\epsilon, p+\epsilon]$ y podemos repetir el argumento $\Longrightarrow$
+
+$$
+\left.\left|f^{2}(x)-p\right|=\mid f(f(x))-p\right)|<\lambda| f(x)-p\left|<\lambda^{2}\right| x-p \mid
+$$
+
+Continuando por inducción tenemos que:
+
+$$
+\left|f^{t}(x)-p\right|<\lambda^{t}|x-p|, \forall x \in[p-\epsilon, p+\epsilon] \text { y } \forall t \in \mathbb{N}^{+}
+$$
+
+Demostración: a) Como $\left|f^{\prime}(p)\right|<1$ y $f^{\prime}$ es continua, $\exists \epsilon>0$ y $0<\lambda<1$ tales que $\left|f^{\prime}(p)\right|<\lambda, \forall x \in[p-\epsilon, p+\epsilon]$. Luego, por el teorema del valor medio, $\forall x \in[p-\epsilon, p+\epsilon], \exists z$ perteneciente al intervalo de extremos $p$ y $x$ tal que:
+
+$$
+|f(x)-p|=|f(x)-f(p)|=\left|f^{\prime}(z)\right||x-p|<\lambda|x-p|
+$$
+
+Como $\lambda<1$ es $|f(x)-p|<|x-p| \Longrightarrow f(x) \in[p-\epsilon, p+\epsilon]$ y podemos repetir el argumento $\Longrightarrow$
+
+$$
+\left.\left|f^{2}(x)-p\right|=\mid f(f(x))-p\right)|<\lambda| f(x)-p\left|<\lambda^{2}\right| x-p \mid
+$$
+
+Continuando por inducción tenemos que:
+
+$$
+\left|f^{t}(x)-p\right|<\lambda^{t}|x-p|, \forall x \in[p-\epsilon, p+\epsilon] \text { y } \forall t \in \mathbb{N}^{+}
+$$
+
+Entonces tenemos que $f^{t}(x) \in[p-\epsilon, p+\epsilon] \forall t \in \mathbb{N}^{+}$
+
+Demostración: a) Como $\left|f^{\prime}(p)\right|<1$ y $f^{\prime}$ es continua, $\exists \epsilon>0$ y $0<\lambda<1$ tales que $\left|f^{\prime}(p)\right|<\lambda, \forall x \in[p-\epsilon, p+\epsilon]$. Luego, por el teorema del valor medio, $\forall x \in[p-\epsilon, p+\epsilon], \exists z$ perteneciente al intervalo de extremos $p$ y $x$ tal que:
+
+$$
+|f(x)-p|=|f(x)-f(p)|=\left|f^{\prime}(z)\right||x-p|<\lambda|x-p|
+$$
+
+Como $\lambda<1$ es $|f(x)-p|<|x-p| \Longrightarrow f(x) \in[p-\epsilon, p+\epsilon]$ y podemos repetir el argumento $\Longrightarrow$
+
+$$
+\left.\left|f^{2}(x)-p\right|=\mid f(f(x))-p\right)|<\lambda| f(x)-p\left|<\lambda^{2}\right| x-p \mid
+$$
+
+Continuando por inducción tenemos que:
+
+$$
+\left|f^{t}(x)-p\right|<\lambda^{t}|x-p|, \forall x \in[p-\epsilon, p+\epsilon] \text { y } \forall t \in \mathbb{N}^{+}
+$$
+
+Entonces tenemos que $f^{t}(x) \in[p-\epsilon, p+\epsilon] \forall t \in \mathbb{N}^{+}$( lo que implica que $p$ es estable) y que $\lim _{t \rightarrow+\infty}\left[f^{t}(x)-p\right]=0$
+
+Demostración: a) Como $\left|f^{\prime}(p)\right|<1$ y $f^{\prime}$ es continua, $\exists \epsilon>0$ y $0<\lambda<1$ tales que $\left|f^{\prime}(p)\right|<\lambda, \forall x \in[p-\epsilon, p+\epsilon]$. Luego, por el teorema del valor medio, $\forall x \in[p-\epsilon, p+\epsilon], \exists z$ perteneciente al intervalo de extremos $p$ y $x$ tal que:
+
+$$
+|f(x)-p|=|f(x)-f(p)|=\left|f^{\prime}(z)\right||x-p|<\lambda|x-p|
+$$
+
+Como $\lambda<1$ es $|f(x)-p|<|x-p| \Longrightarrow f(x) \in[p-\epsilon, p+\epsilon]$ y podemos repetir el argumento $\Longrightarrow$
+
+$$
+\left.\left|f^{2}(x)-p\right|=\mid f(f(x))-p\right)|<\lambda| f(x)-p\left|<\lambda^{2}\right| x-p \mid
+$$
+
+Continuando por inducción tenemos que:
+
+$$
+\left|f^{t}(x)-p\right|<\lambda^{t}|x-p|, \forall x \in[p-\epsilon, p+\epsilon] \text { y } \forall t \in \mathbb{N}^{+}
+$$
+
+Entonces tenemos que $f^{t}(x) \in[p-\epsilon, p+\epsilon] \forall t \in \mathbb{N}^{+}$( lo que implica que $p$ es estable) y que $\lim _{t \rightarrow+\infty}\left[f^{t}(x)-p\right]=0$. Por lo tanto $p$ es un atractor.
+
+\footnotetext{Demostración: b) Si $p$ es un punto periódico de período $k$, basta considerar $g=f^{k}$
+}Demostración: b) Si $p$ es un punto periódico de período $k$, basta considerar $g=f^{k}$. Sabemos que $g(p)=p$ y que $\left|g^{\prime}(p)\right|<1$ por la parte a) tenemos que para todo punto $x$ suficientemente cercano a $p$ es
+
+$$
+\lim _{j \rightarrow+\infty} f^{k j}(x)=\lim _{j \rightarrow+\infty} g^{j}(x)=p
+$$
+
+Demostración: b) Si $p$ es un punto periódico de período $k$, basta considerar $g=f^{k}$. Sabemos que $g(p)=p$ y que $\left|g^{\prime}(p)\right|<1$ por la parte a) tenemos que para todo punto $x$ suficientemente cercano a $p$ es
+
+$$
+\lim _{j \rightarrow+\infty} f^{k j}(x)=\lim _{j \rightarrow+\infty} g^{j}(x)=p
+$$
+
+y por la continuidad de las funciones $f^{j}$ para $1 \leq j \leq k$ se deduce que
+
+$$
+\lim _{n \rightarrow+\infty}\left[f^{n}(x)-f^{n}(p)\right]=0
+$$
+
+lo que implica que $p$ es un atractor.
+
+\section*{Observación}
+Notese que de la demostración se deduce que la tasa de convergencia de la órbita de x cercano a $p$ a la órbita de $p$ es exponencial. (de base $\lambda$ )
+
+\section*{Observación}
+Notese que de la demostración se deduce que la tasa de convergencia de la órbita de x cercano a $p$ a la órbita de $p$ es exponencial. (de base $\lambda$ )
+
+\section*{Teorema}
+Sea $f: \mathbb{R} \rightarrow \mathbb{R}$ una función de clase $C^{1}$ Entonces:\\
+(1) si $p$ es un punto fijo de $f$ con $\left|f^{\prime}(p)\right|>1$, entonces $p$ es un repulsor.\\
+(2) Si $p$ es un punto periódico de período $k$ de $f$ con $\left|\left(f^{k}\right)^{\prime}(p)\right|>1$, entonces $p$ es repulsor.
+
+\section*{Definición}
+Si $f: \mathbb{R} \rightarrow \mathbb{R}$ es un mapa derivable $y$ sea $p$ es un punto periódico de $f$ de período k. Si $\left|\left(f^{k}\right)^{\prime}(p)\right| \neq 1$, entonces $p$ se llama punto hiperbólico
+
+\section*{Definición}
+Si $f: \mathbb{R} \rightarrow \mathbb{R}$ es un mapa derivable $y$ sea $p$ es un punto periódico de $f$ de período $k$. Si $\left|\left(f^{k}\right)^{\prime}(p)\right| \neq 1$, entonces $p$ se llama punto hiperbólico $y$ si $\left|\left(f^{k}\right)^{\prime}(p)\right|=1$, entonces $p$ se dice neutral (o no hiperbólico).
+
+\section*{Observación}
+Si o $\left(p_{1}\right)=\left\{p_{1}, p_{2}, \ldots, p_{k}\right\}$ es una órbita periódica de período $k$ de $f$ entonces por la regla de la cadena vale que:
+
+\section*{Definición}
+Si $f: \mathbb{R} \rightarrow \mathbb{R}$ es un mapa derivable $y$ sea $p$ es un punto periódico de $f$ de período $k$. Si $\left|\left(f^{k}\right)^{\prime}(p)\right| \neq 1$, entonces $p$ se llama punto hiperbólico $y$ si $\left|\left(f^{k}\right)^{\prime}(p)\right|=1$, entonces $p$ se dice neutral (o no hiperbólico).
+
+\section*{Observación}
+Si o $\left(p_{1}\right)=\left\{p_{1}, p_{2}, \ldots, p_{k}\right\}$ es una órbita periódica de período $k$ de $f$ entonces por la regla de la cadena vale que:
+
+
+\begin{align*}
+\left(f^{k}\right)^{\prime}\left(p_{1}\right) & =\left(f \circ f^{k-1}\right)^{\prime}\left(p_{1}\right)=f^{\prime}\left(f^{k-1}\left(p_{1}\right)\right) \cdot\left(f^{k-1}\right)^{\prime}\left(p_{1}\right)=  \tag{1}\\
+& =f^{\prime}\left(p_{k}\right) \cdot\left(f^{k-1}\right)^{\prime}\left(p_{1}\right)=\cdots=f^{\prime}\left(p_{1}\right) \ldots f^{\prime}\left(p_{k}\right) \tag{2}
+\end{align*}
+
+
+\section*{Definición}
+Si $f: \mathbb{R} \rightarrow \mathbb{R}$ es un mapa derivable $y$ sea $p$ es un punto periódico de $f$ de período $k$. Si $\left|\left(f^{k}\right)^{\prime}(p)\right| \neq 1$, entonces $p$ se llama punto hiperbólico $y$ si $\left|\left(f^{k}\right)^{\prime}(p)\right|=1$, entonces $p$ se dice neutral (o no hiperbólico).
+
+\section*{Observación}
+Si o $\left(p_{1}\right)=\left\{p_{1}, p_{2}, \ldots, p_{k}\right\}$ es una órbita periódica de período $k$ de $f$ entonces por la regla de la cadena vale que:
+
+
+\begin{align*}
+\left(f^{k}\right)^{\prime}\left(p_{1}\right) & =\left(f \circ f^{k-1}\right)^{\prime}\left(p_{1}\right)=f^{\prime}\left(f^{k-1}\left(p_{1}\right)\right) \cdot\left(f^{k-1}\right)^{\prime}\left(p_{1}\right)=  \tag{1}\\
+& =f^{\prime}\left(p_{k}\right) \cdot\left(f^{k-1}\right)^{\prime}\left(p_{1}\right)=\cdots=f^{\prime}\left(p_{1}\right) \ldots f^{\prime}\left(p_{k}\right) \tag{2}
+\end{align*}
+
+
+Entonces tenemos que:\\
+(1) Si $\left|f^{\prime}\left(p_{1}\right) \ldots f^{\prime}\left(p_{k}\right)\right|<1$
+
+\section*{Definición}
+Si $f: \mathbb{R} \rightarrow \mathbb{R}$ es un mapa derivable $y$ sea $p$ es un punto periódico de $f$ de período $k$. Si $\left|\left(f^{k}\right)^{\prime}(p)\right| \neq 1$, entonces $p$ se llama punto hiperbólico $y$ si $\left|\left(f^{k}\right)^{\prime}(p)\right|=1$, entonces $p$ se dice neutral (o no hiperbólico).
+
+\section*{Observación}
+Si o $\left(p_{1}\right)=\left\{p_{1}, p_{2}, \ldots, p_{k}\right\}$ es una órbita periódica de período $k$ de $f$ entonces por la regla de la cadena vale que:
+
+
+\begin{align*}
+\left(f^{k}\right)^{\prime}\left(p_{1}\right) & =\left(f \circ f^{k-1}\right)^{\prime}\left(p_{1}\right)=f^{\prime}\left(f^{k-1}\left(p_{1}\right)\right) \cdot\left(f^{k-1}\right)^{\prime}\left(p_{1}\right)=  \tag{1}\\
+& =f^{\prime}\left(p_{k}\right) \cdot\left(f^{k-1}\right)^{\prime}\left(p_{1}\right)=\cdots=f^{\prime}\left(p_{1}\right) \ldots f^{\prime}\left(p_{k}\right) \tag{2}
+\end{align*}
+
+
+Entonces tenemos que:\\
+(1) Si $\left|f^{\prime}\left(p_{1}\right) \ldots f^{\prime}\left(p_{k}\right)\right|<1$ entonces $p_{1}$ es un atractor periódico.\\
+(2) Si $\left|f^{\prime}\left(p_{1}\right) \ldots f^{\prime}\left(p_{k}\right)\right|>1$ entonces $p_{1}$
+
+\section*{Definición}
+Si $f: \mathbb{R} \rightarrow \mathbb{R}$ es un mapa derivable $y$ sea $p$ es un punto periódico de $f$ de período $k$. Si $\left|\left(f^{k}\right)^{\prime}(p)\right| \neq 1$, entonces $p$ se llama punto hiperbólico $y$ si $\left|\left(f^{k}\right)^{\prime}(p)\right|=1$, entonces $p$ se dice neutral (o no hiperbólico).
+
+\section*{Observación}
+Si o $\left(p_{1}\right)=\left\{p_{1}, p_{2}, \ldots, p_{k}\right\}$ es una órbita periódica de período $k$ de $f$ entonces por la regla de la cadena vale que:
+
+
+\begin{align*}
+\left(f^{k}\right)^{\prime}\left(p_{1}\right) & =\left(f \circ f^{k-1}\right)^{\prime}\left(p_{1}\right)=f^{\prime}\left(f^{k-1}\left(p_{1}\right)\right) \cdot\left(f^{k-1}\right)^{\prime}\left(p_{1}\right)=  \tag{1}\\
+& =f^{\prime}\left(p_{k}\right) \cdot\left(f^{k-1}\right)^{\prime}\left(p_{1}\right)=\cdots=f^{\prime}\left(p_{1}\right) \ldots f^{\prime}\left(p_{k}\right) \tag{2}
+\end{align*}
+
+
+Entonces tenemos que:\\
+(1) Si $\left|f^{\prime}\left(p_{1}\right) \ldots f^{\prime}\left(p_{k}\right)\right|<1$ entonces $p_{1}$ es un atractor periódico.\\
+(2) Si $\left|f^{\prime}\left(p_{1}\right) \ldots f^{\prime}\left(p_{k}\right)\right|>1$ entonces $p_{1}$ es un repulsor periódico.
+
+\section*{Observación}
+Cuando un punto periódico atractor (repulsor) es un punto no hiperbólico se dice que es débilmente atractor (repulsor)
+
+\section*{Observación}
+Cuando un punto periódico atractor (repulsor) es un punto no hiperbólico se dice que es débilmente atractor (repulsor)
+
+\section*{Ejemplo}
+Ya vimos que el mapa $f(x)=x^{2}$ tiene puntos fijos 0 y 1 y no tiene otros puntos periódicos.\\
+Como $f^{\prime}(0)=0$ y $f^{\prime}(1)=2$, entonces 0 es un atractor y 1 es un repulsor. Notese ademas que $W^{S}(0)=(-1,1)$
+
+\section*{Ejemplo}
+El mapa $f(x)=x^{2}-1$ tiene un $2-$ ciclo $\{0,-1\}$
+
+\section*{Ejemplo}
+El mapa $f(x)=x^{2}-1$ tiene un $2-$ ciclo $\{0,-1\}$ y como es $f^{\prime}(0)=0 y$ $f^{\prime}(-1)=-2$,\\
+entonces es un atractor periódico pues
+
+$$
+f^{\prime}(0) f^{\prime}(-1)=0
+$$
+
+\section*{Ejemplo}
+El mapa $f(x)=x^{2}-1$ tiene un $2-$ ciclo $\{0,-1\}$ y como es $f^{\prime}(0)=0 y$ $f^{\prime}(-1)=-2$,\\
+entonces es un atractor periódico pues
+
+$$
+f^{\prime}(0) f^{\prime}(-1)=0
+$$
+
+\section*{Ejemplo}
+Para el mapa $f(x)=-\frac{3}{2} x^{2}+\frac{5}{2} x+1$
+
+\section*{Ejemplo}
+El mapa $f(x)=x^{2}-1$ tiene un $2-$ ciclo $\{0,-1\}$ y como es $f^{\prime}(0)=0 y$ $f^{\prime}(-1)=-2$,\\
+entonces es un atractor periódico pues
+
+$$
+f^{\prime}(0) f^{\prime}(-1)=0
+$$
+
+\section*{Ejemplo}
+Para el mapa $f(x)=-\frac{3}{2} x^{2}+\frac{5}{2} x+1,\{0,1,2\}$ es un ciclo de período tres. Como
+
+\section*{Ejemplo}
+El mapa $f(x)=x^{2}-1$ tiene un $2-$ ciclo $\{0,-1\}$ y como es $f^{\prime}(0)=0 y$ $f^{\prime}(-1)=-2$,\\
+entonces es un atractor periódico pues
+
+$$
+f^{\prime}(0) f^{\prime}(-1)=0
+$$
+
+\section*{Ejemplo}
+Para el mapa $f(x)=-\frac{3}{2} x^{2}+\frac{5}{2} x+1,\{0,1,2\}$ es un ciclo de período tres. Como
+
+$$
+f^{\prime}(x)=-3 x+\frac{5}{2}
+$$
+
+\section*{Ejemplo}
+El mapa $f(x)=x^{2}-1$ tiene un $2-$ ciclo $\{0,-1\}$ y como es $f^{\prime}(0)=0 y$ $f^{\prime}(-1)=-2$,\\
+entonces es un atractor periódico pues
+
+$$
+f^{\prime}(0) f^{\prime}(-1)=0
+$$
+
+\section*{Ejemplo}
+Para el mapa $f(x)=-\frac{3}{2} x^{2}+\frac{5}{2} x+1,\{0,1,2\}$ es un ciclo de período tres. Como
+
+$$
+f^{\prime}(x)=-3 x+\frac{5}{2}
+$$
+
+tenemos que
+
+$$
+f^{\prime}(0) f^{\prime}(1) f^{\prime}(2)=\frac{35}{8}>1
+$$
+
+\section*{Ejemplo}
+El mapa $f(x)=x^{2}-1$ tiene un $2-$ ciclo $\{0,-1\}$ y como es $f^{\prime}(0)=0 y$ $f^{\prime}(-1)=-2$,\\
+entonces es un atractor periódico pues
+
+$$
+f^{\prime}(0) f^{\prime}(-1)=0
+$$
+
+\section*{Ejemplo}
+Para el mapa $f(x)=-\frac{3}{2} x^{2}+\frac{5}{2} x+1,\{0,1,2\}$ es un ciclo de período tres. Como
+
+$$
+f^{\prime}(x)=-3 x+\frac{5}{2}
+$$
+
+tenemos que
+
+$$
+f^{\prime}(0) f^{\prime}(1) f^{\prime}(2)=\frac{35}{8}>1
+$$
+
+y por lo tanto este ciclo es un repulsor.
+
+FE $\triangle$ FACULTAD DE\\
+CIENCIAS ECONOMMICAS\\
+YDE ADMINISTRACION
+
+UNIVERSIDAD\\
+DE LA REPÚBLICA\\
+ini URUGUAY
+
+
+\end{document}

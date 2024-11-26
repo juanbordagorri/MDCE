@@ -1,0 +1,342 @@
+\documentclass[11pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage{natbib}
+\usetheme{Pittsburgh}
+\usepackage{verbatim} 
+\usepackage[english]{babel}
+\usepackage{epstopdf}
+\usepackage{multicol}
+%\titlegraphic{%\vspace*{1cm}
+%	\includegraphics[width=2.5cm]{logo_udelar}
+	%\hspace*{1cm}~%
+%		\includegraphics[width=3.5cm]{logo_FCEA.png}
+%}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\AtBeginSection{ 
+	\begin{frame}
+		\frametitle{Index}
+			\tableofcontents[currentsection]
+	\end{frame}
+}
+\begin{document}
+	\title{Modelos dinámicos y computacionales en Economía}
+	\subtitle{Modelo de Oferta y Demanda Dinámica \\ (Modelo de la telaraña)}
+	%\logo{}
+	\institute{FCEA, UDELAR}
+	\date{27 de agosto de 2024}
+	%\subject{}
+	%\setbeamercovered{transparent}
+	%\setbeamertemplate{navigation symbols}{}
+	\frame[plain]{\maketitle}
+%\setbeamertemplate{background}{\includegraphics[width=2 cm]{logo_FCEA.png}}
+
+\begin{frame}
+\frametitle{Contenido de la clase:}
+\begin{itemize}
+\item Repaso de la clase pasada
+\begin{enumerate}
+    \item Ecuación en diferencias lineal de primer orden
+\end{enumerate}
+	\item Modelo de la telaraña
+	\begin{enumerate}
+	\item Modelo original 
+	\item Modelo con expectativas adaptativas
+\end{enumerate}		
+	\item Otras extensiones
+	\begin{enumerate}
+		\item Modelo con inventario 
+	\end{enumerate}	
+\item Solución numérica en R
+	\begin{enumerate}
+	\item ¿Cómo escribimos un modelo en R?
+	\item Modelo original
+	\item Extensiones
+%	\item Funciones en R
+\end{enumerate}	
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Repaso de la clase pasada}
+\framesubtitle{Ecuación en diferencias lineal de primer orden}
+\small
+\[ \boxed{\ \ (E) \ \ x_{n+1}=\;a_n\; x_{n}+ b_n \ \ } \]
+
+    \begin{itemize}
+        \item Solución de la ecuación homogénea: con condici\'{o}n inicial $x_0=c$ viene dada por:
+\[ x_n \ = \ \left(\prod_{i=0}^{i=n-1} a_i \right) \ c =  a_{n-1}\ .\ .\ .\ .\ a_2\ a_1\ a_0 \ c\ \ , \ \ \forall\ n \geq 1. \]
+        \item Solución general: 
+    \end{itemize}
+\[ \boxed{\ \ sol.\ general\ de\ (E) \ = \  sol.\ general\ de\ (H) \ + \ sol.\ particular\ de\ (E) \ \ } \]
+Solución particular?
+\begin{itemize}
+    \item $X_n=A \longrightarrow X_{n+1}= A$
+    \item $X_n=A n + B\longrightarrow X_{n+1}= A (n+1) + B$
+    \item $X_n=A n^2 \longrightarrow X_{n+1}= A (n+1)^2 $; ....
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Repaso de la clase pasada}
+\framesubtitle{Ecuación en diferencias lineal de primer orden}
+    
+{\bf    Caso especial: coeficientes constantes}
+    \[ \boxed{\ \ (E) \ \ x_{n+1}=\;a\; x_{n}+ b \ \ } \]
+\begin{itemize}
+        \item Solución de la ecuación homogénea: $c\ a^n$
+        \item Solución general: Si $a\not=1$ entonces la soluci\'{o}n de $(E)$ con condici\'{o}n inicial $x_0$ es
+\[ x_n=\dfrac{b}{1-a}+ \left( x_0 - \dfrac{b}{1-a} \right)a^n \ \ , \ \ \forall \  n \geq 0. \]
+Adem\'{a}s, en este caso la \'{u}nica soluci\'{o}n constante (punto de equilibrio) es $\dfrac{b}{1-a}$.
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}
+\frametitle{Cobweb model: introducción}
+\begin{itemize}
+\item Introducido por Kaldor (1934)\footnote{Kaldor, N. (1934). A classificatory note on the determinateness of equilibrium. \textit{The Review of Economic Studies, 1}(2), 122-136.} y Ezekiel (1938)\footnote{Ezekiel, M. (1938). The cobweb theorem. \textit{The Quarterly Journal of Economics, 52}(2), 255-280.}. 
+	\item Este modelo muestra que los precios pueden estar sujetos a fluctuaciones periódicas.
+	\item Importancia del tiempo discreto.
+	\item Para algunos valores de los parámetros, se alcanza el equilibrio.
+	\item El comportamiento dinámico de los agentes \underline{no siempre} converge al equilibrio.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cobweb model: modelo original}
+\framesubtitle{Presentación del modelo}
+\begin{multicols}{2}
+\underline{Ecuaciones:}
+\begin{enumerate}
+	\item $D_t=\alpha-\beta p_t$
+	\item $S_t=-\gamma+\delta p_{t-1}$
+	\item $D_t=S_t$ (condición de equilibrio)
+\end{enumerate}
+%\vspace{1.5cm}
+\underline{Variables:}
+\begin{itemize}
+	\item D: cantidad demandada
+	\item S: cantidad ofrecida
+	\item p: precio
+\end{itemize}
+\vspace{1cm}
+\underline{Parámetros: }
+\begin{itemize}
+	\item $\alpha, \beta$ (parámetros demanda)
+	\item $\gamma, \delta$: (parámetros oferta)
+\end{itemize}
+\underline{Dinámica:}
+\begin{equation}
+p_{t+1}=-\dfrac{\delta}{\beta}p_t+\dfrac{\alpha+\gamma}{\beta}
+\end{equation}	
+\end{multicols}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cobweb model: modelo original}
+\framesubtitle{Solución del modelo}	
+Solución particular:
+\begin{equation}\label{solpart1}
+p^{*}=\dfrac{\alpha+\gamma}{\beta+\delta}
+\end{equation}
+Solución general:
+\begin{equation}
+p_t=\left( p_1-\dfrac{\alpha+\gamma}{\beta+\delta}\right) \left(-\dfrac{\delta}{\beta} \right)^{t-1}+
+\dfrac{\alpha+\gamma}{\beta+\delta} 
+\end{equation}
+Importante:
+\begin{itemize}
+\scriptsize	\item La ecuación \ref{solpart1} refleja el equilibrio intertemporal del modelo.
+	\item $\left( p_1-\dfrac{\alpha+\gamma}{\beta+\delta}\right)$ nos muestra si comenzamos por encima o por debajo del precio de equilibrio y la distancia a él.
+	\item La expresión $\left|\dfrac{\delta}{\beta} \right|$ es importante para conocer la estabilidad del modelo: atractor si es < 1, repulsor si es > 1, oscilatorio (puntos períodicos de período 2) si es igual a 1.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cobweb model: modelo con expectativas adaptativas}
+	\framesubtitle{Presentación del modelo}
+	\begin{multicols}{2}
+		\underline{Ecuaciones:}
+		\begin{enumerate}
+			\item $D_t=\alpha-\beta p_t$
+			\item $S_t=-\gamma+\delta p^{e}_{t}$
+			\item $p^{e}_{t}=\lambda p_{t-1}+(1-\lambda) p^{e}_{t-1}$
+			\item $D_t=S_t$ (condición de equilibrio)
+		\end{enumerate}
+		%\vspace{1.5cm}
+		\underline{Variables:}
+		\begin{itemize}
+			\item D: cantidad demandada
+			\item S: cantidad ofrecida
+			\item p: precio
+			\item $p^{e}$: precio esperado
+		\end{itemize}
+		\vspace{1cm}
+		\underline{Parámetros: }
+		\begin{itemize}
+			\item $\alpha, \beta$ (parámetros demanda)
+			\item $\gamma, \delta$ (parámetros oferta)
+			\item $\lambda$: parámetro expectativas, $\lambda \in [0,1]$
+		\end{itemize}
+		\underline{Dinámica:}
+		\begin{equation}
+		p_{t+1}=\left[ \dfrac{\beta-\lambda(\beta+\delta)}{\beta}\right] p_t+\dfrac{\alpha+\gamma}{\beta}
+		\end{equation}	
+	\end{multicols}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cobweb model: modelo con expectativas adaptativas}
+	\framesubtitle{Solución del modelo}	
+	Solución particular:
+	\begin{equation}\label{solpart2}
+	p^{*}=\dfrac{\alpha+\gamma}{\beta+\delta}
+	\end{equation}
+	Solución general:
+	\begin{equation}
+	p_t=\left( p_1-\dfrac{\alpha+\gamma}{\beta+\delta}\right) \left[ \dfrac{\beta-\lambda(\beta+\delta)}{\beta}\right]^{t-1}+
+	\dfrac{\alpha+\gamma}{\beta+\delta} 
+	\end{equation}
+	Importante:
+	\begin{itemize}
+		\scriptsize	\item La ecuación \ref{solpart2} refleja el equilibrio intertemporal del modelo.
+		\item $\left( p_1-\dfrac{\alpha+\gamma}{\beta+\delta}\right)$ nos muestra si comenzamos por encima o por debajo del precio de equilibrio y la distancia a él.
+		\item La expresión $\left[ \dfrac{\beta-\lambda(\beta+\delta)}{\beta}\right]$ es importante para conocer la estabilidad del modelo.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cobweb model: modelo con inventario}
+\framesubtitle{Introducción}	
+	\begin{itemize}
+		\item En este caso, levantamos el supuesto que $D_t=S_t$, $\forall t$.
+		\item Como la oferta reacciona a las variaciones de precios, los productores guardan un inventario para hacer frente a imprevistos.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cobweb model: modelo con inventario}
+\framesubtitle{Presentación del modelo}
+\begin{multicols}{2}
+\underline{Ecuaciones:}
+\begin{enumerate}
+\item $D_t=\alpha-\beta p_t$
+\item $S_t=-\gamma+\delta p_{t}$
+\item $p_{t+1}=p_{t}-\sigma(S_t-D_t)$ \end{enumerate}
+		%\vspace{1.5cm}
+\underline{Variables:}
+\begin{itemize}
+\item D: cantidad demandada
+\item S: cantidad ofrecida
+\item p: precio
+\end{itemize}
+\vspace{1cm}
+\underline{Parámetros: }
+\begin{itemize}
+\item $\alpha, \beta$ (parámetros demanda)
+\item $\gamma, \delta$: (parámetros oferta)
+\item $\sigma$: parámetro de ajuste de precios
+\end{itemize}	
+\end{multicols}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Cobweb model: modelo con inventario}
+\framesubtitle{Dinámica del modelo}
+\underline{Pasos a seguir:}
+\begin{itemize}
+	\item sustituimos $S_t$ y $D_t$ en la tercera ecuación para que dependa sólo del precio y los parámetros.
+\end{itemize}
+\begin{equation}
+p_{t+1}=[1-\sigma(\beta+\delta)]p_t+\sigma(\alpha+\gamma)
+\end{equation}
+\begin{enumerate}
+	\item ¿Solución particular?
+	\item ¿Solución general?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cobweb model: modelo con inventario}
+	\framesubtitle{Solución particular y general del modelo}
+	\begin{enumerate}
+		\item Solución particular: 	\begin{equation}\label{solpart3}
+		p^{*}=\dfrac{\alpha+\gamma}{\beta+\delta}
+		\end{equation}
+		\item Solución general:
+	\begin{equation}
+p_t=\left( p_1-\dfrac{\alpha+\gamma}{\beta+\delta}\right) [1-\sigma(\beta+\delta)]^{t-1}+
+\dfrac{\alpha+\gamma}{\beta+\delta} 
+\end{equation}
+
+	\end{enumerate}
+Importante:
+\begin{itemize}
+	\scriptsize	\item La ecuación \ref{solpart3} refleja (el mismo) el equilibrio intertemporal del modelo.
+	\item $\left( p_1-\dfrac{\alpha+\gamma}{\beta+\delta}\right)$ nos muestra (nuevamente) si comenzamos por encima o por debajo del precio de equilibrio y la distancia a él.
+	\item Estabilidad? Ver valores de $\sigma$ para los cuales la solución es estable.\\
+	\onslide<2->{\textcolor{blue}{Solución: $0<\sigma<\dfrac{2}{\beta+\delta}$}}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Escribir un modelo en R}
+\framesubtitle{¿Qué datos necesitamos?}
+Para escribir un modelo, necesitamos conocer:
+\begin{itemize}
+	\item Parámetros del modelo.
+	\item Variables del modelo.
+	\item Manera en que se relacionan los parámetros y las variables (ecuaciones).
+	\item Valores iniciales de las variables.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Escribir un modelo en R}
+	\framesubtitle{Ejemplo 1: modelo Cobweb}
+\begin{itemize}
+	\item Dar valores a los parámetros:
+	\begin{itemize}
+		\item $\beta=10$; \hspace{0.55cm} $\delta=5$;
+		\item $\alpha=1000$; $-\gamma=250$.
+	\end{itemize}
+	\item Generar las variables relevantes para la dinámica (p, S, D).
+	\item Establecer una condición inicial para p: $p_{(t=1)}=25$
+	\item Escribir la estructura de control para generar la dinámica del sistema:
+	\begin{itemize}
+		\item utilizamos la ecuación de movimiento del sistema.
+		\item por 50 iteraciones (utilizar un $for$ o un $while$)
+		\item Para los valores iniciales, ¿qué podemos decir de la estabilidad del modelo? \onslide<2->{Probar con:
+			\begin{itemize}
+				\item $\beta=\delta=10$
+				\item $\beta=10$, $\delta=10.5$
+			\end{itemize}}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Escribir un modelo en R}
+\framesubtitle{Ejemplo 2: modelo Cobweb con expectativas adaptativas}
+\begin{itemize}
+	\item Utilizaremos los mismos valores de los parámetros $\longrightarrow \lambda=0.5$  
+	\item ¿qué debemos cambiar en el código anterior para trabajar con expectativas adaptativas?
+	\item Mostrar que el equilibrio es el mismo $\longrightarrow$ ¿qué es lo que cambia?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Escribir un modelo en R}
+	\framesubtitle{Ejemplo 3: modelo Cobweb con inventario}
+	\begin{itemize}
+		\item Utilizaremos los mismos valores de los parámetros $\longrightarrow \sigma=0.5$  
+		\item ¿qué debemos cambiar en el código original para trabajar con inventarios?
+		\item Mostrar que el equilibrio es el mismo $\longrightarrow$ ¿qué es lo que cambia?
+	\end{itemize}
+\end{frame}
+
+\end{document}
+

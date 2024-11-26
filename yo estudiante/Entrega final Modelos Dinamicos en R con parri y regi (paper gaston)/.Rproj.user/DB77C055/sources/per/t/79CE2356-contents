@@ -1,0 +1,130 @@
+
+```{r}
+{
+  times = 1000
+  sensi = #length(R) #para  Verhulst
+    length(A) #para Ricker
+  
+  data.L <- matrix(0, nrow = sensi, ncol = times)
+  data.L[,1] = rdunif(1,a = 1, b = 150) #tamaño inicial de la poblacion (sino probar con 100) 
+  
+  data.n <- matrix(0, nrow = sensi, ncol = times)
+  data.n[,1] = 0.02 #runif(1,0.01,0.04) # crecimiento de la poblacion inicial (sino probar con 0.02)
+  
+  data.k <- matrix(0, nrow = sensi, ncol = times)
+  data.k[,1] = 1
+  
+  data.h <- matrix(0, nrow = sensi, ncol = times)
+  data.h[,1] = 1
+  
+  data.y <- matrix(0, nrow = sensi, ncol = times)
+  data.y[,1] = 1
+}
+for (i in 1:sensi) {
+  for (t in 2:times) {
+    
+    # a = A[i]
+    # b <- log(a) / M
+    # data.L[i, t] <- a * data.L[i, t - 1] * exp(-b * data.L[i, t - 1]) # Ricker (1954)
+    
+    r= R[i]
+    data.L[i,t] <- data.L[i,t-1]*exp(r*(1-(data.L[i,t-1]/M)))  #Verhulst (1838)
+    
+    data.n[i, t] <- (data.L[i, t] / data.L[i, t - 1]) - 1 # tasa de crecimiento de la poblacion
+    data.k[i, t] <- (s_k * data.y[i, t - 1] + (1 - delta) * data.k[i, t - 1]) / (data.L[i, t] / data.L[i, t - 1]) #evolucion de k
+    data.h[i, t] <- (s_h * data.y[i, t - 1] + (1 - delta) * data.h[i, t - 1]) / (data.L[i, t] / data.L[i, t - 1]) #evolucion de h
+    data.y[i, t] <- data.k[i, t] ^ alpha * data.h[i, t] ^ beta
+  }
+}
+```
+
+
+
+
+
+#Cantidad de iteraciones
+
+times = 1000
+
+k = rep(0, times)
+k[1] = 1
+h = rep(0, times)
+h[1] = 2
+y = rep(0, times)
+n = rep(0, times)
+n[1] = runif(1,0,0.04) # crecimiento de la poblacion inicial (sino probar con 0.02)
+L[1] = rdunif(1,a = 1, b = 150) #(sino probar con 100)
+
+
+s_k = 0.25 # tasa de ahorro del capital fisico
+s_h = 0.3 # tasa de ahorro del capital humano
+delta = 0.05 # tasa de depreciacion
+alpha = 0.40 # parametro de eficiencia de escala del capital fisico
+beta = 0.4 # parametro de eficiencia de escala del capital humano
+
+
+
+for (t in 2:times) {
+  L[t] <- L[t-1]*exp(r*(1-(L[t-1])/M))  #Verhulst (1838)
+  n[t] <- (L[t]/L[t-1])-1 # tasa de crecimiento de la poblacion
+  k[t] <- (s_k*y[t-1]+(1-delta)*k[t-1]) / (L[t]/L[t-1]) # evolucion de k
+  h[t] <- (s_h*y[t-1]+(1-delta)*h[t-1]) / (L[t]/L[t-1]) # evolucion de h
+  y[t] <- k[t]^alpha * h[t]^beta # funcion de produccion per capita
+}
+
+plot(n,main="Tasa de crecimiento de la población")
+plot(L,main="Tamaño de la población")
+
+
+# Especificaciones de leyes generales de poblacion ----
+### Verhulst (1838) ----
+
+r = 0.03
+M = 500 # capacidad de carga
+
+L[t] <- L[t-1]*exp(r*(1-(L[t-1])/M))  #Verhulst (1838)
+
+
+## Beverton (1957) ----
+
+M = 300 # capacidad de carga
+b <- 0.08
+a <- M*b+1
+
+L[t] <- (a*L[t-1])/(1+b*L[t-1])
+
+## Ricker (1954) ----
+
+M = 300 # capacidad de carga
+a = runif(1, 1, exp(2)) # para que converja a M tiene que: 1 < a < e^2 (7.389056)
+b = log(a)/M
+
+L[t] <- a*L[t-1]*exp(-b*L[t-1])
+
+## Hassell (1975) ----
+https://royalsocietypublishing.org/doi/10.1098/rsos.182178 # Hassell model
+
+M = 300 # capacidad de carga
+b = 0.2
+c = 1 # c = 1 corresponds to ideal contest competition, the limit c → ∞ corresponds to ideal scramble competition and c > 1 corresponds to varying combinations of scramble and contest.
+a = (M*b+1)^c
+
+L[t] <- (a*L[t-1]) / (1+b*L[t-1])^c
+
+# Analisis de sensibilidad ----
+## Parametros ----
+
+data.L <- matrix(0, nrow = length(C), ncol = times)
+data.L[,1] = 100 # tamaño inicial de la poblacion
+
+data.n <- matrix(0, nrow = length(C), ncol = times)
+data.n[,1] = 0.02 # tamaño inicial de la poblacion
+
+data.k <- matrix(0, nrow = length(C), ncol = times)
+data.k[,1] = 1
+
+data.h <- matrix(0, nrow = length(C), ncol = times)
+data.h[,1] = 1
+
+data.y <- matrix(0, nrow = length(C), ncol = times)
+data.y[,1] = 1

@@ -1,0 +1,311 @@
+\documentclass[11pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage{natbib}
+\usetheme{Pittsburgh}
+\usepackage{verbatim} 
+\usepackage[english]{babel}
+\usepackage{epstopdf}
+\usepackage{multicol}
+%\titlegraphic{%\vspace*{1cm}
+	%	\includegraphics[width=2.5cm]{logo_udelar}
+	%\hspace*{1cm}~%
+	%		\includegraphics[width=3.5cm]{logo_FCEA.png}
+	%}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\AtBeginSection{ 
+	\begin{frame}
+		\frametitle{Index}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+\begin{document}
+	\title{Modelos dinámicos y computacionales en Economía}
+	\subtitle{Curva de Phillips}
+	%\logo{}
+	\institute{FCEA, UDELAR}
+	\date{10 de septiembre de 2024}
+	%\subject{}
+	%\setbeamercovered{transparent}
+	%\setbeamertemplate{navigation symbols}{}
+	\frame[plain]{\maketitle}
+	%\setbeamertemplate{background}{\includegraphics[width=2 cm]{logo_FCEA.png}}
+	
+	
+	
+	\begin{frame}{Introducción}
+		Es un modelo macro utilizado para analizar la dinámica de la inflación y la brecha del producto.\\
+		Tres casos:\\
+\begin{enumerate}
+	\item control de la inflación
+	\item perturbación permanente de demanda
+	\item perturbación temporal de oferta
+\end{enumerate}
+		Estratégias de control:\\
+\begin{enumerate}
+	\item agresiva
+	\item gradual
+\end{enumerate}		
+		
+		Tres tipos de respuestas de los hacedores de politica:
+\begin{enumerate}
+	\item neutral
+	\item complaciente
+	\item de extinción
+\end{enumerate}		
+	\end{frame}
+
+
+ \begin{frame}{Introducción}
+ \framesubtitle{Relación entre inflación y brecha de producto. \\Fuente: Gordon (2009)}
+     \begin{figure}
+         \centering
+         \includegraphics[width=0.6\linewidth]{images/Captura desde 2024-09-10 15-45-46.png}
+   %      \caption{Caption}
+         \label{fig:enter-label}
+     \end{figure}
+ \end{frame}
+	\begin{frame}{Tres ecuaciones centrales}
+		(1) Formación de expectativas:
+		
+		$$
+		\pi_{t}^{e}=\lambda \pi_{t-1}+(1-\lambda) \pi_{t-1}^{e}, \lambda \in[0,1]
+		$$
+		
+		(2) Oferta agregada de corto plazo:
+		
+		$$
+		\pi_{t}=\pi_{t}^{e}+\alpha \widehat{Y}_{t}+z_{t}^{s}
+		$$
+		
+		(3) Demanda agregada de corto plazo:
+		
+		$$
+		\widehat{Y}_{t}=\widehat{x}_{t}-\pi_{t}+\widehat{Y}_{t-1}+z_{t}^{d}
+		$$
+		
+	\end{frame}
+	
+	
+	\begin{frame}{Variables endógenas}
+		\begin{itemize}
+			\item inflación efectiva en el período $t: \pi_{t}$
+			\item inflación esperada: $\pi_{t}^{e}$
+			\item desvio porcentual entre el producto efectivo y el producto natural: $\widehat{Y}_{t}$
+		\end{itemize}
+		
+	\end{frame}
+
+		
+\begin{frame}[allowframebreaks]
+			\frametitle{Variables exógenas}
+			\begin{itemize}
+				\item Shock de oferta sobre la inflación $\left(z_{t}^{s}\right)$ y shock de demanda $\left(z_{t}^{d}\right)$
+				\item Inflación efectiva y esperada en el período anterior: $\pi_{t-1}$ y $\pi_{t-1}^{e}$\\
+				parámetros: $\lambda, \alpha$\\
+				otras variables requeridas: $Y_{t}$ producto real, $X_{t}$ producto nominal, $\widehat{x}_{t}$ tasa de crec. del prod. nominal y $P_{t}$ nivel general de precios.
+			\end{itemize}
+		\end{frame}
+  \begin{frame}[allowframebreaks]
+  \frametitle{Proceso de formación de expectativas}
+      $\pi_{t}^{e}=\lambda \pi_{t-1}+(1-\lambda) \pi_{t-1}^{e}$\\
+			Casos extremos:
+			
+			\begin{itemize}
+				\item $\lambda=0$ los agentes no ajustan expectativas $\Rightarrow \pi_{t}^{e}=\pi_{t-1}^{e}$
+				\item $\lambda=1$ expectativas adaptativas con velocidad de ajuste máximo, $\pi_{t}^{e}=\pi_{t-1}$
+			\end{itemize}
+			
+			Observar que:\\
+			si $\pi_{t}^{e}=\lambda \pi_{t-1}+(1-\lambda) \pi_{t-1}^{e} \Rightarrow \pi_{t-1}^{e}=\lambda \pi_{t-2}+(1-\lambda) \pi_{t-2}^{e}$\\
+			$\mathrm{y} \pi_{t}^{e}=\lambda \pi_{t-1}+(1-\lambda)\left[\lambda \pi_{t-2}+(1-\lambda) \pi_{t-2}^{e}\right]$
+			
+			$$
+			\pi_{t}^{e}=\lambda \pi_{t-1}+\lambda(1-\lambda) \pi_{t-2}+(1-\lambda)^{2} \pi_{t-2}^{e}
+			$$
+			
+			$$
+			\pi_{t}^{e}=\lambda\left[\pi_{t-1}+(1-\lambda) \pi_{t-2}+(1-\lambda)^{2} \pi_{t-3}+\ldots\right]
+			$$
+	\end{frame}
+ \begin{frame}{Proceso de formación de expectativas (cont.)}
+     Y se cumple que:
+			
+			$$
+			\lambda\left[1+(1-\lambda)+(1-\lambda)^{2}+(1-\lambda)^{3}+\cdots \cdots\right]=1
+			$$
+			
+			Esto es: la $\pi_{t}^{e}$ es un promedio ponderado de la inflación observada en todos los períodos anteriores, donde los ponderadores van perdiendo peso cuanto mas lejanos en el tiempo se encuentren.
+			
+ \end{frame}
+			
+		
+\begin{frame}{Curva SP: curva de Phillips aumentada con expectativas de corto plazo}
+	$$
+	\pi_{t}=\pi_{t}^{e}+\alpha \widehat{Y}_{t}+z_{t}^{s}
+	$$
+	
+	En el equilibrio de largo plazo la curva en el plano $\left(\widehat{Y}_{t}, \pi_{t}\right)$ esta representada por una recta vertical.\\
+	A partir de:
+	
+	\[
+	\left\{\begin{array}{l}
+		\pi_{t}^{e}=\lambda \pi_{t-1}+(1-\lambda) \pi_{t-1}^{e}  \tag{1}\\
+		\pi_{t}=\pi_{t}^{e}+\alpha \widehat{Y}_{t}+z_{t}^{s}
+	\end{array}\right.
+	\]
+	
+	Se llega a:
+	
+	
+	\begin{equation*}
+		\pi_{t}=\lambda \pi_{t-1}+(1-\lambda) \pi_{t-1}^{e}+\alpha \widehat{Y}_{t}+z_{t}^{s} \tag{2}
+	\end{equation*}
+	
+\end{frame}
+\begin{frame}{Curva DG: demanda agregada}
+
+\begin{gather*}
+X_{t}=P_{t} Y_{t} \\
+\log X_{t}-\log X_{t-1}=\log P_{t}-\log P_{t-1}+\log Y_{t}-\log Y_{t-1} \\
+x_{t}=\pi_{t}+y_{t} \tag{3}
+\end{gather*}
+
+
+Tasa de crecimiento del producto nominal $=$ inflación + tasa del crecimiento del prod. real
+
+$$
+\begin{aligned}
+& y_{t}^{N}=\log Y_{t}^{N}-\log Y_{t-1}^{N} \\
+& x_{t}-y_{t}^{N}=\pi_{t}+y_{t}-y_{t}^{N}
+\end{aligned}
+$$
+
+exceso de crecimiento producto nominal $=$ inflación + exceso de crecimiento del producto real respecto al natural.
+\end{frame}
+
+\begin{frame}{Ejemplo: ajuste de inflación y brecha de producto}
+\framesubtitle{Ajuste de los precios ante un aumento del producto nominal del 6\%}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.65\linewidth]{images/Captura desde 2024-09-10 16-18-53.png}
+  %      \caption{Caption}
+        \label{fig:enter-label}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Ejemplo: ajuste de inflación y brecha de producto (cont.)}
+\framesubtitle{Ajuste de los precios ante un aumento del producto nominal del 6\%}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.65\linewidth]{images/Captura desde 2024-09-10 16-38-22.png}
+%    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
+\end{frame}
+\begin{frame}
+Y se puede re escribir como:
+
+
+\begin{equation*}
+\widehat{Y}_{t}=\widehat{x}_{t}-\pi_{t}+\widehat{Y}_{t-1}+z_{t}^{d} \tag{4}
+\end{equation*}
+
+
+Representa los pares $\left(\widehat{Y_{t}}, \pi_{t}\right)$ para una tasa dada de crecimiento de la demanda $\left(\widehat{x}_{t}\right)$		
+		
+
+		
+\end{frame}		
+
+		
+\begin{frame}{Equilibrio Global}
+	Se corresponde con el par $\left(\widehat{Y}_{t}, \pi_{t}\right)$ que se verifica SP y DG.\\
+	Sustituyendo
+	
+	$$
+	\widehat{Y_{t}}=\widehat{x}_{t}-\pi_{t}+\widehat{Y}_{t-1}+z_{t}^{d}
+	$$
+	
+	en
+	
+	$$
+	\pi_{t}=\lambda \pi_{t-1}+(1-\lambda) \pi_{t-1}^{e}+\alpha \widehat{Y}_{t}+z_{t}^{s}
+	$$
+	
+	Analiticamente se corresponde con:
+	
+	
+	\begin{equation*}
+		\pi_{t}=\left(\frac{1}{1+\alpha}\right)\left[\lambda \pi_{t-1}+(1-\lambda) \pi_{t-1}^{e}+\alpha\left(\widehat{x}_{t}+\widehat{Y}_{t-1}-z_{t}^{d}\right)+z_{t}^{s}\right] \tag{5}
+	\end{equation*}
+	
+
+\end{frame}
+
+
+\begin{frame}
+		Sustituyendo en:
+
+
+\begin{equation*}
+	\widehat{Y}_{t}=\widehat{x}_{t}-\pi_{t}+\widehat{Y}_{t-1}+z_{t}^{d} \tag{6}
+\end{equation*}
+
+
+la última ecuación, se llega a la ecuación que describe la dinámica del producto:
+
+$$
+\begin{gathered}
+	\widehat{Y}_{t}=\widehat{x}_{t}-\frac{1}{1+\alpha}\left[\pi_{t-1}+(1-\lambda) \pi_{t-1}^{e}+\alpha \widehat{Y}_{t-1}\right] \\
+	-\frac{\alpha}{1+\alpha}\left(\widehat{x}_{t}+z_{t}^{d}\right)-\frac{1}{1+\alpha} z_{t}^{s}+Y_{t-1}+z_{t}^{d}(7)
+\end{gathered}
+$$
+	
+\end{frame}	
+
+\begin{frame}
+		Otra forma de analizarlo\\
+Considerar (la forma canonica del sistema):
+
+\[
+\left\{\begin{array}{l}
+	\pi_{t}=\frac{1}{1+\alpha}\left(\lambda \pi_{t-1}+(1-\lambda) \pi_{t-1}^{e}+\alpha \widehat{Y}_{t-1}\right)+K  \tag{8}\\
+	\pi_{t}^{e}=\frac{1}{1+\alpha}\left(\lambda \pi_{t-1}+(1-\lambda) \pi_{t-1}^{e}\right) \\
+	\widehat{Y}_{t}=\frac{1}{1+\alpha}\left(-\lambda \pi_{t-1}+(1-\lambda) \pi_{t-1}^{e}+\alpha \widehat{Y}_{t-1}\right)
+\end{array}\right.
+\]	
+\end{frame}
+
+		
+\begin{frame}
+		En forma matricial:
+	
+	
+	\begin{gather*}
+		\left(\begin{array}{c}
+			\pi_{t} \\
+			\pi_{t}^{e} \\
+			\widehat{Y}_{t}
+		\end{array}\right)=\left(\begin{array}{ccc}
+			\lambda & 1-\lambda & \alpha \\
+			\lambda & 1-\lambda & 0 \\
+			-\lambda & 1-\lambda & \alpha
+		\end{array}\right)\left(\begin{array}{c}
+			\pi_{t-1} \\
+			\pi_{t-1}^{e} \\
+			\frac{Y_{t-1}}{e}
+		\end{array}\right) \\
+		+\left(\begin{array}{l}
+			\frac{\alpha}{1+\alpha}\left(\widehat{x}_{t}+z_{t}^{d}\right)+z_{t}^{s} \\
+			0 \\
+			\left.\frac{1}{1+\alpha}\left(\widehat{x}_{t}+z_{t}^{d}\right)-z_{t}^{s}\right)
+		\end{array}\right) \tag{9}
+	\end{gather*}
+\end{frame}		
+	
+
+	
+\end{document}
