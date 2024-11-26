@@ -12,7 +12,7 @@
 %		\includegraphics[width=3.5cm]{logo_FCEA.png}
 %}
 \setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{footline}[frame number]
+%\setbeamertemplate{footline}[frame number]
 \AtBeginSection{ 
 	\begin{frame}
 		\frametitle{Index}
@@ -44,12 +44,46 @@
 
 
 \begin{frame}
-	\frametitle{Modelos de difusión de información}
+	\frametitle{Difusión de información}
+	¿Cómo modelar transmisión de información? \\
+	\vspace{3mm}
 	Desde distintas ramas de la ciencia se ha estudiado la manera en la cual se difunde la información en las redes sociales.\\
 	Dos modelos fundamentales se han propuesto:
 	\begin{itemize}
+		\item Threshold models of collective behavior (Granovetter, 1978)
 		\item Independent Cascade Model (Goldenberg et al., 2001)
-		\item Linear threshold model (Granovetter, 1978)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Threshold models of collective behavior}
+	\framesubtitle{Granovetter - 1978}
+	Propone un modelo aplicable para diversos procesos sociales: segregación residencial, difusión de innovación, huelgas, migración, rumores, enfermedades, votación, etc.
+	\begin{itemize}
+		\item El punto de partida son las preferencias. A partir de ellas se estudia su agregación.
+		\item Individuos racionales y heterogéneos.
+		\item Decisiones binarias: paro/no paro, me mudo/no me mudo, voto A/voto B.
+		\item Cada agente comienza en la categoría \textit{inactiva}.
+	\end{itemize}
+	\vspace{3mm}
+	¿Cómo simulamos una decisión?
+	\begin{itemize}
+		\item<2-> Mediante un UMBRAL
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Threshold models of collective behavior}
+	\framesubtitle{Umbral de decisión}
+	\begin{itemize}
+		\item Se le asigna un umbral aleatoriamente en el intervalo $[0,1]$ a cada agente (distribución uniforme y normal).
+		\item La probabilidad de activación depende de:
+		\begin{itemize}
+			\item Lo que hacen los de su comunidad/vecindad.
+			\item La influencia de una persona cualquiera sobre el comportamiento de uno (amigo o desconocido).
+		\end{itemize}
+		\item Cada vecino tiene un \textit{peso} para representar su influencia.
+		\item Una vez que el agente se \textit{activa}, no cambia su estado.
 	\end{itemize}
 \end{frame}
 
@@ -66,7 +100,7 @@
 
 \begin{frame}
 	\frametitle{Modelos de difusión de información}
-	\framesubtitle{Linear threshold model (Granovetter, 1978)}
+	\framesubtitle{Threshold models of collective behavior (Granovetter, 1978)}
 		\begin{itemize}
 	\item Cada nodo inactivo tiene un umbral aleatorio en el intervalo $[0 ; 1]$ en la probabilidad de ser influenciado.
 	\item Cada vecino de ese nodo tiene un \textit{peso} para representar su influencia.
