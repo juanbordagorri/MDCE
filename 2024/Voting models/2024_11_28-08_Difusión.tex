@@ -99,42 +99,73 @@
 			\item La información en la red se difunde a través del \textit{boca a boca}.
 			\item Estudian la importancia de la comunicación interpersonal de los vinculos fuertes y débiles (amigos y desconocidos).
 			\item Dos estados: activo (nodos que toman en cuenta la información) e inactivo (nodos no influenciados por la información).
-			\item La información se difunde desde los \textit{early adopters}, los cuales se vinculan con nodos inactivos.
-			\item Cada nodo activo puede conectarse con un solo nodo inactivo; el proceso termina cuando se terminan las posibilidades de transmitir información.
+			\item Los agentes se pueden informar de 3 formas:
+			\begin{itemize}
+				\item Contacto con amigo (strong tie)
+				\item Contacto con desconocido (weak tie)
+				\item Publicidad (con probabilidad $\alpha$)
+			\end{itemize}
+			\item Cada agente pertenece a una red personal y se conecta con una cantidad finita de desconocidos; el proceso termina cuando se terminan las posibilidades de transmitir información.
 	\end{itemize}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Independent Cascade Model (Goldenberg et al., 2001)}
+	\framesubtitle{Funcionamiento del modelo}
+	\begin{enumerate}
+		\item Todos los agentes empiezan desinformados.
+		\item Solo a través de la publicidad se pueden informar: si $U<p(t)_i \Rightarrow$ informado.
+		\item Comienza el \textit{boca a boca}: se realizan las probabilidades de activación y el número $U$.
+		\item Se repite el paso 3 hasta que el 95\% del total estén informados.
+	\end{enumerate}
+	\vspace{5mm}
+	$$p(t) = (1-(1-\alpha)(1-\beta_w)^j \;(1-\beta_s)^m) \hspace{2mm}
+	\footnote{ Donde $\alpha< \beta_w< \beta_s$} $$
+	Se simuló el modelo para distintas combinaciones de $\alpha, \beta_w, \beta_s$, tamaño de red personal y número de desconocidos. 
+\end{frame}
 
+\begin{frame}
+	\frametitle{Independent Cascade Model}
+	\framesubtitle{Resultados}
+	De las simulaciones extraen datos relevantes para hacer análisis estadístico (regresiones) en distintos momentos (\textit{early informed, middle informed, late informed}).
+	\begin{itemize}
+		\item La influencia de los contactos débiles en la velocidad de transmisión de información es al menos tan importante como la de los contactos fuertes (\textit{the strength of weak ties}).
+		\item La publicidad es relevante al principio.
+		\item A medida que se van informando, el potencial de los contactos fuertes desaparece.
+		\item Cuando una red personal está completamente informada, son los contactos débiles los que \textit{mueven al mundo}.
+		\item El efecto de los contactos fuertes en la velocidad de transmisión disminuye a medida que decrece la red personal.
+	\end{itemize}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Procesos de decisión individuales y sociales}
 	\begin{itemize}
 		\item Muchos de estos modelos describen cómo nuestras experiencias pasadas y las experiencias pasadas de otros pueden influir en nuestras acciones.
 		\item Nuestras percepciones y nuestras creencias, junto con factores demográficos y culturales producen las intenciones.
-		\item Las intenciones influencian al comportamiento, las cuales pueden verse inhibidas o exacerbadas por factores ambientales (Ajzen, 1985).
+		%\item Las intenciones influencian al comportamiento, las cuales pueden verse inhibidas o exacerbadas por factores ambientales (Ajzen, 1985).
 		\item Los resultados dependen de los comportamientos de los individuos, aunque también puede depender de los comportamientos de otros individuos. 
 		\item Ejemplo: El resultado global de una vacuna en una población.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Procesos de decisión}
-	\framesubtitle{Aspectos individuales y colectivos\footnote{{\scriptsize Nowak, S. A., Matthews, L. J., \& Parker, A. M. (2017). A General Agent-Based Model of Social Learning. \textit{Rand Health Quarterly, 7}(1).}}}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.7\linewidth]{figuras/influencia.png}
-%		\caption{}
-		\label{fig:influencia}
-	\end{figure}
-	
-\end{frame}
+%\begin{frame}
+%	\frametitle{Procesos de decisión}
+%	\framesubtitle{Aspectos individuales y colectivos\footnote{{\scriptsize Nowak, S. A., Matthews, %L. J., \& Parker, A. M. (2017). A General Agent-Based Model of Social Learning. \textit{Rand %Health Quarterly, 7}(1).}}}
+%	\begin{figure}
+%		\centering
+%		\includegraphics[width=0.7\linewidth]{figuras/influencia.png}
+%%		\caption{}
+%		\label{fig:influencia}
+%	\end{figure}
+%	
+%\end{frame}
 
 \begin{frame}
 	\frametitle{Contagio social}
 \begin{itemize}
 	\item Los resultados globales influyen en los factores comportamentales a nivel individual, a partir de la \textit{heurística de disponibilidad} (Tversky \& Kahneman, 1974).
     \item Los modelos de contagio social describen cómo los comportamientos se transmiten a través de una población.
-    \item Si algún comportamiento se convierte en más usual, tienden a percibirse como más comunes lo cual aumenta la probabilidad que otros adopten este comportamiento. \textbf{EJEMPLO DE INSTITUCIONES A LO AOKI}
+    \item Si algún comportamiento se convierte en más usual, tienden a percibirse como más comunes lo cual aumenta la probabilidad que otros adopten este comportamiento (instituciones económicas según Aoki).
 \end{itemize}
 \end{frame}
 
