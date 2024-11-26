@@ -45,8 +45,12 @@
 
 \begin{frame}
 	\frametitle{Difusión de información}
-	¿Cómo modelar transmisión de información? \\
-	\vspace{3mm}
+	¿Cómo modelar transmisión de información?
+	\begin{itemize}
+		\item<2-> ABM
+		\item<3-> Grafos (redes sociales)
+	\end{itemize}
+	\vspace{2mm}
 	Desde distintas ramas de la ciencia se ha estudiado la manera en la cual se difunde la información en las redes sociales.\\
 	Dos modelos fundamentales se han propuesto:
 	\begin{itemize}
@@ -58,10 +62,11 @@
 \begin{frame}
 	\frametitle{Threshold models of collective behavior}
 	\framesubtitle{Granovetter - 1978}
-	Propone un modelo aplicable para diversos procesos sociales: segregación residencial, difusión de innovación, huelgas, migración, rumores, enfermedades, votación, etc.
+	Propone un modelo aplicable para diversos procesos: segregación residencial, difusión de innovación, huelgas, migración, rumores, enfermedades, votación, etc.
 	\begin{itemize}
 		\item El punto de partida son las preferencias. A partir de ellas se estudia su agregación.
-		\item Individuos racionales y heterogéneos.
+		\item Individuos racionales
+		\footnote{\scriptsize Contrario a los primeros trabajos de la psicología social de la acción colectiva donde se postulaba que acúuan instintiva e irracionalmente (La razón populista - Ernesto Laclau).} y heterogéneos.
 		\item Decisiones binarias: paro/no paro, me mudo/no me mudo, voto A/voto B.
 		\item Cada agente comienza en la categoría \textit{inactiva}.
 	\end{itemize}
@@ -76,37 +81,29 @@
 	\frametitle{Threshold models of collective behavior}
 	\framesubtitle{Umbral de decisión}
 	\begin{itemize}
-		\item Se le asigna un umbral aleatoriamente en el intervalo $[0,1]$ a cada agente (distribución uniforme y normal).
+		\item A cada agente se le asigna un umbral aleatoriamente en el intervalo $[0,1]$ (distribución uniforme y normal).
 		\item La probabilidad de activación depende de:
-		\begin{itemize}
+		\begin{enumerate}
 			\item Lo que hacen los de su comunidad/vecindad.
 			\item La influencia de una persona cualquiera sobre el comportamiento de uno (amigo o desconocido).
-		\end{itemize}
+		\end{enumerate}
 		\item Cada vecino tiene un \textit{peso} para representar su influencia.
 		\item Una vez que el agente se \textit{activa}, no cambia su estado.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Modelos de difusión de información}
+	\frametitle{\normalsize Talk of the Network: A complex systems look at the underlying process of word-of-mouth}
 	\framesubtitle{Independent Cascade Model (Goldenberg et al., 2001)}
 	\begin{itemize}
-			\item La información se difunde en la red a través de cascadas de información.
+			\item La información en la red se difunde a través del \textit{boca a boca}.
+			\item Estudian la importancia de la comunicación interpersonal de los vinculos fuertes y débiles (amigos y desconocidos).
 			\item Dos estados: activo (nodos que toman en cuenta la información) e inactivo (nodos no influenciados por la información).
 			\item La información se difunde desde los \textit{early adopters}, los cuales se vinculan con nodos inactivos.
 			\item Cada nodo activo puede conectarse con un solo nodo inactivo; el proceso termina cuando se terminan las posibilidades de transmitir información.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Modelos de difusión de información}
-	\framesubtitle{Threshold models of collective behavior (Granovetter, 1978)}
-		\begin{itemize}
-	\item Cada nodo inactivo tiene un umbral aleatorio en el intervalo $[0 ; 1]$ en la probabilidad de ser influenciado.
-	\item Cada vecino de ese nodo tiene un \textit{peso} para representar su influencia.
-	\item La probabilidad de activación depende de la importancia de sus vecinos activos: esto es, si sobrepasan el umbral; el proceso se termian cuando no es posible modificar las decisiones de los individuos.
-\end{itemize}
-\end{frame}
 
 
 \begin{frame}
