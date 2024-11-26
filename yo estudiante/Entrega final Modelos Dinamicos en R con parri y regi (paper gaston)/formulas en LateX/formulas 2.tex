@@ -1,0 +1,103 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\title{formulas}
+\author{juan.bordagorri}
+\date{November 2021}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\begin{document}
+\begin{equation*}
+	\mathbf{Y_{(t)}=K^{\alpha}_{(t)} H^{\beta}_{(t)} L^{1-\alpha-\beta}_{(t)}, \ \ \alpha+ \beta \in (0,1)}
+\end{equation*}
+	\vspace{5mm}\\
+\begin{equation}
+\begin{split}
+			\dot{L}_{(t)} &= nL_{(t)}\\
+			L_{(0)}&>0\\
+\end{equation}
+\end{split}
+\vspace{5mm}\\
+	$$\dot{k}=s_kk^{\alpha}_{(t)}h^{\beta}_{(t)}-(\delta+n)k_{(t)}$$\\
+		\vspace{5mm}\\
+	$$\dot{h}=s_hk^{\alpha}_{(t)}h^{\beta}_{(t)}-(\delta+n)h_{(t)}$$\\
+\vspace{5mm}\\
+		\begin{cases}
+			k^{*}=\left[\frac{s_k^{1-\beta}s_h^{\beta}}{\delta+n}\right]^{\frac{1}{1-\alpha-\beta}}\\
+			h^{*}=\left[\frac{s_h^{1-\alpha}s_k^{\alpha}}{\delta+n}\right]^{\frac{1}{1-\alpha-\beta}}
+		\end{cases}
+\vspace{5mm}\\
+$$ G(k,h)= \left(s_k k^{\alpha} h^{\beta}-(\delta+n)k \; ;\; s_h k^{\alpha} h^{\beta}-(\delta+n)h\right)$$\\
+\begin{equation*}
+	\displaystyle{\dot{k} \choose \dot{h}}= \hspace{1mm} G(k^{*},h^{*}) + \mathbb{J}_G \hspace{1mm}	\displaystyle{k-k^{*} \choose h-h^{*}} \hspace{3mm}\text{siendo} \quad
+	 \mathbb{J}_G= \left(
+	 \begin{matrix}
+	 	(\delta+n)(\alpha-1) & \frac{s_k}{s_h}\beta(\delta+n) \vspace{1mm}\\
+	 	\frac{s_h}{s_k}\alpha(\delta+n) & (\delta+n)(\beta-1) \\
+	 \end{matrix}
+	 \right)
+\end{equation*}
+\vspace{5mm}\\
+\begin{equation}
+	\begin{split}
+		\lambda_1&= \lvert (\delta+n)(\alpha+\beta-1)\lvert <1\longrightarrow \; % el \; es un espacio grande
+		\text{velocidad de convergencia}\vspace{2mm} \\
+		\lambda_2&=\lvert -(\delta+n)\lvert <1
+	\end{equation}
+\end{split}
+\begin{equation}
+	\begin{split}
+		L_{(t+1)}&= \mathit{P}\left(L_{(t)}\right)\\
+		L_{(0)}&>0\\
+	\end{equation}
+\end{split}
+$$ \mathit{P}\left(L\right) \geq L>0, \; \forall L \leq L_{\infty} $$
+\vspace{5mm}\\
+$$ \dfrac{\mathit{P}\left(L_{t}\right)}{L_{(t)}} \geq \dfrac{\mathit{P}\left(L_{t+1}\right)}{L_{(t+1)}}, \; \forall L \leq L_{\infty}$$
+\vspace{5mm}\\
+$$ \lim_{t\rightarrow+\infty}\frac{\mathit{P}\left(L_{t}\right)}{L_{(t)}}-1=0 $$
+\vspace{5mm}\\
+$$ \lim_{t\rightarrow+\infty}L_t = L_{\infty} \; /\; L_t\leq L_{\infty} \ \forall \ t $$
+\vspace{5mm}\\
+$$ 	Y_{(t)}=K^{\alpha}_{(t)} H^{\beta}_{(t)} L^{1-\alpha-\beta}_{(t)}, \ \ \alpha+ \beta \in (0,1) $$
+\vspace{5mm}\\
+$$ k_{t+1}= \dfrac{s_{k} k^{\alpha}_t h^{\beta}_t +(1-\delta)k_t}{P(L_t)/L_t} $$
+\vspace{5mm}\\
+$$ h_{t+1}= \dfrac{s_{h} k^{\alpha}_t h^{\beta}_t +(1-\delta)h_t}{P(L_t)/L_t} $$
+\vspace{5mm}\\
+$$ L_{t+1}=P(L_t) $$
+\begin{cases}
+	k^{*}=\left[\frac{s_k^{1-\beta}s_h^{\beta}}{\delta}\right]^{\frac{1}{1-\alpha-\beta}}\\
+	h^{*}=\left[\frac{s_h^{1-\alpha}s_k^{\alpha}}{\delta}\right]^{\frac{1}{1-\alpha-\beta}}\\
+	L^{*}= L_{\infty}
+\end{cases}
+\vspace{3mm}
+\begin{equation*}
+	T(k,h,L)= \left(\dfrac{s_{k} k^{\alpha}_t h^{\beta}_t +(1-\delta)k_t}{P(L_t)/L_t} \; ;\; \dfrac{s_{h} k^{\alpha}_t h^{\beta}_t +(1-\delta)h_t}{P(L_t)/L_t} \; ; \; P(L_t)\right)
+\end{equation*}
+\vspace{5mm}
+\begin{equation*}
+	\mathbb{J}_T= \left(
+	\begin{matrix}
+		\delta (\alpha-1)+1 & \frac{\beta s_k \delta}{s_h} & k^{*} \left(\frac{1-P\text{´}(L_{\infty})} {L_{\infty}} \right) \vspace{1mm} \\
+		\frac{\alpha s_h \delta}{s_k} & \delta (\beta -1)+1 & h^{*} \left(\frac{1-P\text{´}(L_{\infty})} {L_{\infty}} \right) \vspace{1mm} \\
+		0 & 0 & P\text{´}(L_{\infty})
+	\end{matrix}
+	\right)
+\end{equation*}
+\begin{equation}
+	\begin{split}
+		\lambda_1&= \delta(\alpha+\beta-1) < 1 \vspace{2mm} \\
+		\lambda_2&=1-\delta <1 \\
+		\lambda_3&= P\text{´}(L_{\infty}) <1
+	\end{equation}
+\end{split} \\
+\\
+Ley de poblacion de Verhulst (1838)
+$$	L_{t+1} = L_{t} \cdot e^{r(1-\frac{L_{t}}{M})} $$
+Ley de poblacion de Beverton (1957)
+$$  L_{t+1} = \frac{a L_{t}}{1+b L_{t}} $$
+Ley de poblacion de Ricker (1954)
+$$  L_{t+1} = a L_{t} \cdot e^{-b L_{t}} $$
+Ley de poblacion de Hassell (1975)
+$$  L_{t+1} = \frac{a L_{t}}{(1+b L_{t})^c} $$
+\end{document}

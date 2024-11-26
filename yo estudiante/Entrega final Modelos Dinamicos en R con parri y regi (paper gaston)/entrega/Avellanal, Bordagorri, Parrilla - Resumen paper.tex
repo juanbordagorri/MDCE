@@ -1,0 +1,100 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+
+\setcounter{tocdepth}{4}
+
+\setcounter{secnumdepth}{4}
+
+\usepackage{color}
+
+\usepackage{amsmath, amsthm, amsfonts}
+
+\setlength{\parindent}{2.5em}
+
+\usepackage{graphicx}
+
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\usepackage[T1]{fontenc}
+
+\usepackage[utf8]{luainputenc}
+
+\usepackage{anysize} 
+
+\usepackage{array}
+
+\marginsize{2cm}{2cm}{2cm}{2cm} 
+
+\usepackage{setspace}
+
+\setstretch{1.2}
+
+\usepackage{color,soul}
+
+\usepackage{booktabs}
+
+\usepackage{adjustbox}
+
+\usepackage{natbib}
+
+\setlength{\bibsep}{0.0pt}
+
+\usepackage{caption}
+
+\usepackage{subcaption}
+
+\usepackage{float}
+
+\usepackage{tocloft}
+
+\usepackage{multirow}
+
+\newcommand{\minitab}[2][l]{\begin{tabular}{#1}#2\end{tabular}}
+
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+\usepackage{fixltx2e}
+
+\usepackage[section]{placeins} % to prevent figures from going out of sections
+
+%\usepackage{hyperref}
+
+%\usepackage{xcolor}
+
+\usepackage[bottom]{footmisc}
+
+\usepackage{lscape}
+
+\usepackage[spanish]{babel}
+
+\usepackage[latin1]{inputenc}
+
+
+
+\begin{document}
+\title{“Tiempo, Población y Modelos de Crecimiento” \\ G. Cayssials (2018)}
+\author{Regia Avellanal, Juan Bordagorri y Lucía Parrilla }
+\date{Diciembre 2021}
+\maketitle
+
+\newpage
+
+El artículo busca evaluar cuales son los efectos de asumir una hipótesis alternativa respecto al crecimiento poblacional exponencial, característico de los principales modelos de crecimiento, así como presentar las implicaciones en los resultados de una modelización en tiempo discreto en lugar de continuo.
+
+Para ello, se presenta en primer lugar la formulación original del modelo de crecimiento de Mankiw, Romer y Weil (1992), que incorpora el capital humano al modelo de Solow pero manteniendo una tasa constante de crecimiento poblacional. Debido a la conceptualización más amplia de capital que utiliza el modelo, la velocidad de convergencia al equilibrio es menor que la resultante en el modelo de Solow, que se ajusta mejor a los datos empíricos.
+
+En segundo lugar, se desarrolla una extensión del modelo en tiempo continuo, donde se sustituye la ley de crecimiento de la población por una que verifique que la población sea creciente y acotada, y la tasa de crecimiento de la población sea decreciente y tienda a 0. En este modelo, la velocidad de convergencia depende de los parámetros de la tecnología, de la población y las tasas de ahorro.
+
+Finalmente, se propone una extensión adicional, donde se modeliza el tiempo de forma discreta, para que tenga una dinámica poblacional más realista. Para ello, basándose en Maynard (1974), se incorpora una ley general de crecimiento de la población que verifica las siguientes propiedades: la tasa de crecimiento sea no negativa, la población crezca a tasa decreciente, la tasa de crecimiento tienda a ser nula en un horizonte temporal infinito, y la población está acotada y converge.
+
+Excluyendo la solución trivial, este modelo presenta un único equilibrio positivo, con valores que dependen de los parámetro de tecnología y las tasas de ahorro exógenas, sin depender de la ley de la población. A su vez, se analiza la estabilidad y velocidad de convergencia del estado estacionario, donde a través de la aproximación lineal se obtienen tres autovalores positivos y menores a la unidad lo cual implica que el equilibrio es un atractor global.
+
+Por último, al realizar la comparación entre los resultados de los modelos, se destaca que el crecimiento económico no sigue realmente una ley de la población exponencial. Así, la principal diferencia radica en que en el original la población tiende a infinito, mientras que en el extendido la población está acotada por la capacidad de carga. Continuando con esta diferencia, se identifica que originalmente las variables agregadas tienden a infinito a medida que pasa el tiempo, mientras que, al estar acotada la población en el modelo extendido, los valores agregados de equilibrio convergen a un valor. La capacidad de carga es un concepto acuñado por la biología al estudiar organismos en condiciones de laboratorio donde se puede controlar perfectamente el entorno y calcular la cota superior a la población. La validez externa de este concepto fue puesto en duda ya que las condiciones de la Tierra cambian constantemente y las diferentes configuraciones sociales, como los patrones de consumo determinan la cantidad de personas que podría soportar el planeta.
+
+Asimismo, en el modelo extendido la velocidad de convergencia puede depender de los parámetro de la tecnología y de la tasa de depreciación o de la ley de la población pero no de ambos, y en cualquier caso es menor que en el modelo original. A pesar de estas diferencias, se destaca que el comportamiento dinámico en ambos modelos es cualitativamente similar, conclusión que no se puede saber a priori sin realizar el análisis adecuado desde el punto de vista matemático.
+
+Sin embargo, todos estos modelos se basan en la existencia de un agente representativo que maximiza su utilidad de forma individual, determinando y agotando en sí mismo el comportamiento del modelo. No existen propiedades emergentes, los resultados son la agregación de una infinitud vacía ya que no encuentra correlato en la realidad material. Estos modelos utilizan ecuaciones fenomenológicas, en la medida que describen la evolución de las variables y no ahondan en los microfundamentos que hacen a la dinámica observada.  En contraposición, los modelos basados en agentes utilizan un sujeto económico que funciona como el punto de partida de todo modelo (bottom-up). Este tiene un comportamiento basado en heurísticas e interacciones, de las cuales aprende y ajusta su accionar, aproximándose al proceso de toma de decisiones del humano y como este constituye los patrones observados. 
+
+
+\end{document}
