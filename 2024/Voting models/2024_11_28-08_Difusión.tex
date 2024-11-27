@@ -119,7 +119,7 @@
 		\item Se repite el paso 3 hasta que el 95\% del total estén informados.
 	\end{enumerate}
 	\vspace{5mm}
-	$$p(t) = (1-(1-\alpha)(1-\beta_w)^j \;(1-\beta_s)^m) \hspace{2mm}
+	$$p(t) = 1-(1-\alpha)(1-\beta_w)^j \;(1-\beta_s)^m \hspace{2mm}
 	\footnote{ Donde $\alpha< \beta_w< \beta_s$} $$
 	Se simuló el modelo para distintas combinaciones de $\alpha, \beta_w, \beta_s$, tamaño de red personal y número de desconocidos. 
 \end{frame}
@@ -185,56 +185,19 @@
 
 \begin{frame}
 	\frametitle{Voting Model}
-\framesubtitle{Modificaciones}
+	\framesubtitle{Modificaciones}
 \begin{enumerate}
-	\item Agregar gráficos y monitores para visualizar la proporción de cada tipo.
-	\item Suponer que en cada momento, una proporción $\alpha=5\%$ decide su voto de forma aleatoria.
-	\item Asumir que los individuos tienen información pasada sobre el resultado de las elecciones (o encuestas) y esto repercute marginalmente, sólo en caso de desempate en la variable \textbf{total}. ¿Cambian drásticamente los resultados?
-	\item Suponer que no todos los individuos en este mundo simulado tienen el mismo grado de influencia.
+	\item<1-> Agregar gráficos y monitores para visualizar la proporción de cada tipo.
+	\item<2-> Suponer que en cada momento, una proporción $\alpha=5\%$ decide su voto de forma aleatoria.
+	\item<3-> Asumir que los individuos tienen información pasada sobre el resultado de las elecciones (o encuestas) y esto repercute marginalmente, sólo en caso de desempate en la variable \textbf{total}. ¿Cambian drásticamente los resultados?
+	\item<4-> Suponer que no todos los individuos en este mundo simulado tienen el mismo grado de influencia.
 	\begin{itemize}
-		\item En el caso habitual, todos tienen un `` grado de influencia'' igual a 1. En este caso, la influencia será un valor aleatorio entre [ 1 - $\gamma$ , 1 + $\gamma$]. 
+		\item En el caso habitual, todos tienen un "grado de influencia" igual a 1. En este caso, la influencia será un valor aleatorio entre [ 1 - $\gamma$ , 1 + $\gamma$]. 
 	\end{itemize}  
-	\item Partiendo de una distribución aleatoria de los votantes en el espacio y en sus proporciones iniciales, ¿bajo qué condiciones podemos alcanzar consensos?  
+	\item<5-> Partiendo de una distribución aleatoria de los votantes en el espacio y en sus proporciones iniciales, ¿bajo qué condiciones podemos alcanzar consensos?  
 \end{enumerate}
 \end{frame}
 
-\begin{frame}
-\frametitle{Otros ejemplos: preferencias sociales}
-The utility function of these agents can be written as: 
-\begin{equation}
-u_{i,t}(c,\tau, m) = \frac{a}{C}*f_i(c) + b*m_{c,t} - d*m_{c',t}
-\end{equation} 
-where:
-\begin{itemize}
-\small	\item $ f(c)$ are individual preferences, exogenous to the model, with $ f(c) > 0 $ if $ c = \tau $ (preferred crowding type) and $ f(c) = 0 $ in other cases.
-	\item $m_{c,t}$ is the proportion of agents with crowding type $c$ in the period $ t $ and $m_{c',t}$ is equal to the proportion of agents with a crowding type other than $ c $ in $ t $, \textit{in the neighborhood of i}.
-	\item $C$ is the number of crowding types available.
-	\item $a$, $b$ and $d$ are the parameters that will allow us to study other behaviors from the base-configuration, with $ a = b = d = 1 $
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Otros ejemplos: confianza en los Bancos Centrales y tolerancia a los desvíos}
-\begin{itemize}
-\small	\item Central Bank's credibility ($\chi_{it}$, Eq. \eqref{eq3}) determines whether agents in the next period will be based mostly on the target or trend inflation (Eq. \eqref{eq4}).
-	\item It is measured each period; w¸e assume $\chi^{min}_{it} = 0.1 $ and $\chi^{max}_{it}=0.9$, with $\Delta_{i}$ as tolerance to the Central Bank. 
-\end{itemize} 
-
-\begin{equation}
-\chi_{it}= 1-\dfrac{|\pi^T_t-\pi_t|}{\Delta_{i}}\text{ , with } \Delta_{i}\sim U[0,\delta]
-\label{eq3}
-\end{equation}
-
-\begin{itemize}
-\small	\item Credibility is time-dependent; this implies that Central Bank's credibility arises from their performance.
-	\item  Parameter $\Delta_{i}$, defined as individual tolerance to the Central Bank policy, is an indirect measure of the maximum deviation from the target so that the target is no longer credible.
-\end{itemize} 
-
-\begin{equation}
-\pi^e_{i,t+1} = \pi^T_{it} \chi_{it} + \pi^{trend}_{it} (1 - \chi_{it})
-\label{eq4}
-\end{equation}	
-\end{frame}
 
 \begin{frame}
 \frametitle{Modeling Commons}
